@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register page</title>
+</head>
+<body>
+
+  <!--  -->
+
+  <h1>Register</h1>
+
+  <form action="#">
+
+    <label for="name">Name</label>
+    <input id="name" type="text" minlength="3" maxlength="30" required>
+
+    <label for="email">Email</label>
+    <input id="email" type="email" required>
+
+    <label for="password">Password</label>
+    <input id="password" type="text" minlength="8" required>
+
+    <label for="country">Country</label>
+    <select name="country" id="country">
+      <option value="colombia">Colombia</option>
+      <option value="mexico">Mexico</option>
+      <option value="usa">USA</option>
+      <option value="españa">España</option>
+      <option value="brasil">Brasil</option>
+    </select>
+
+    <label>Account type:</label>
+    
+    <label for="personal">Personal</label>
+    <input id="personal" name="acc-type" type="radio" required>
+    <label for="business">Business</label>
+    <input id="business" name="acc-type" type="radio">
+
+    <button type="submit">Register</button>
+
+  </form>
+
+  <!--  -->
+
+</body>
+</html>
