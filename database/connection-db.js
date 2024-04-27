@@ -26,6 +26,27 @@ function registerUser(name, email, password, acc_type, country, callback){
   });
 }
 
+function loginUser(email, password, callback) {
+  const sql = `SELECT * FROM user WHERE email = ?`;
+  db.query(sql, [email], (err, result) => {
+      if (err) {
+          console.error('Error al obtener usuario de la base de datos:', err);
+          return callback(err);
+      }
+      if (result.length === 0) {
+          return callback(null, null);
+      }
+      const user = result[0];
+      if (user.password !== password) {
+        // La contraseña no coincide
+        return callback(null, null);
+      }
+      console.log('Inicio de sesión exitoso. Información del usuario:', user);
+      callback(null, user);
+  });
+}
+
 module.exports = {
-  registerUser
+  registerUser,
+  loginUser
 };

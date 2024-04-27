@@ -3,42 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register page</title>
+  <title>Login</title>
 </head>
 <body>
 
-  <h1>Register</h1>
-
   <form action="/index" method="POST">
+    <p>Login now</p>
 
-    <label for="name_input">Name</label>
-    <input id="name_input" name="name" type="text" minlength="3" maxlength="30" required>
+    <label for="email_input">Email
+      <input id="email_input" type="email" placeholder="Enter your email" required>
+    </label>
 
-    <label for="email_input">Email</label>
-    <input id="email_input" name="email" type="email" required>
+    <label for="password_input">Password
+      <input id="password_input" type="password" placeholder="Enter your password" required minlength="8">
+    </label>
 
-    <label for="password_input">Password</label>
-    <input id="password_input" name="password" type="password" minlength="8" required>
+    <div>
+      <label for="rem_input">
+        <input id="rem_input" type="checkbox" checked>Remember me
+      </label>
+      <a href="#">Forgot password?</a>
+    </div>
 
-    <label for="country_input">Country</label>
-    <select name="country" id="country_input">
-      <option value="colombia">Colombia</option>
-      <option value="mexico">Mexico</option>
-      <option value="usa">USA</option>
-      <option value="españa">España</option>
-      <option value="brasil">Brasil</option>
-    </select>
+    <button type="submit">Log in</button>
 
-    <label>Account type:</label>
-    
-    <label for="personal">Personal</label>
-    <input id="personal" name="acc_type" value="personal" type="radio" required>
-    <label for="business">Business</label>
-    <input id="business" name="acc_type" value="business" type="radio">
-
-    <button type="submit">Register</button>
-
+    <p>Don't have an account? -
+      <a href="/register">Sign up</a>
+    </p>
   </form>
-
+  
 </body>
 </html>
