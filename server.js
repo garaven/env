@@ -19,6 +19,14 @@ app.get("/register", (req, res) => {
   res.sendFile(path.join(__dirname + "/view/src/register.html"))
 })
 
+app.get("/add", (req, res) => {
+  res.sendFile(path.join(__dirname + "/view/src/add_device.html"))
+})
+
+app.get("/list", (req, res) => {
+  res.sendFile(path.join(__dirname + "/view/src/devices_list.html"))
+})
+
 // Controller/LoginControl
 app.post("/index", (req, res) => {
   const { email, password } = req.body;
