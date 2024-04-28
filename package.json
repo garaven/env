@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2",
+    "express-session": "^1.18.0",
     "mysql": "^2.18.1"
   },
   "devDependencies": {

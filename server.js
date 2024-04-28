@@ -19,6 +19,7 @@ app.get("/register", (req, res) => {
   res.sendFile(path.join(__dirname + "/view/src/register.html"))
 })
 
+// Controller/LoginControl
 app.post("/index", (req, res) => {
   const { email, password } = req.body;
   db.loginUser(email, password, (err, result) => {
@@ -29,6 +30,7 @@ app.post("/index", (req, res) => {
   })
 })
 
+// Controller/RegisterControl
 app.post("/register", (req, res) =>{
   const { name, email, password, acc_type, country } = req.body;
   db.registerUser(name, email, password, acc_type, country, (err, result) =>{
