@@ -8,10 +8,10 @@
 <body>
   <div class="container">
     <h2 class="title">Device Information</h2>
-    <form class="form">
+    <form action="/add" method="POST" class="form">
         <div>
             <label for="device-name">Device Name</label>
-            <input type="text" id="device-name" name="device-name">
+            <input type="text" id="name" name="name">
         </div>
         <div>
             <label for="brand">Brand</label>
@@ -19,11 +19,11 @@
         </div>
         <div>
             <label for="power-consumption">Power Consumption (kWh)</label>
-            <input type="number" id="power-consumption" name="power-consumption">
+            <input type="number" id="consumption" name="consumption">
         </div>
         <div>
             <label for="usage-time">Usage Time (in hours)</label>
-            <input type="number" id="usage-time" name="usage-time">
+            <input type="number" id="usage_time" name="usage_time">
         </div>
         <button type="submit">Submit</button>
     </form>
@@ -58,6 +58,10 @@
 
   .form > * + * {
     margin-top: 1rem;
+  }
+
+  body {
+    background-color: #09151c;
   }
 
   label {

@@ -48,3 +48,16 @@ app.post("/register", (req, res) =>{
     res.send('User registered sucesfully');
   })
 })
+
+// Controller/AddControl
+app.post("/add", (req, res) => {
+  const { name, brand, consumption, usage_time } = req.body;
+  db.addDevice(name, brand, consumption, usage_time, (err, result) => {
+    db.addDevice(name, brand, consumption, usage_time, (err, result) =>{
+      if (err) {
+        return res.status(500).send('Error registering device');
+      }
+      res.send('Device registered sucesfully');
+    })
+  })
+})
