@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 0 10px #cfcfcf;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.separate_div {
+  display: flex;
+  justify-content: space-between;
+}

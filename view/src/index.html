@@ -4,21 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 
   <form action="/index" method="POST">
-    <p>Login now</p>
+    <h2>Login now</h2>
 
-    <label for="email_input">Email
+    <div class="separate_div">
+      <label for="email_input">Email</label>
       <input id="email_input" type="email" placeholder="Enter your email" required>
-    </label>
+    </div>
 
-    <label for="password_input">Password
+    <div class="separate_div">
+      <label for="password_input">Password</label>
       <input id="password_input" type="password" placeholder="Enter your password" required minlength="8">
-    </label>
+    </div>
 
-    <div>
+    <div class="separate_div">
       <label for="rem_input">
         <input id="rem_input" type="checkbox" checked>Remember me
       </label>

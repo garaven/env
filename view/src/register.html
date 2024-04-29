@@ -4,37 +4,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    form {
+      height: 350px;
+    }
+
+    #business {
+      margin-left: 20px;
+    }
+  </style>
 </head>
 <body>
-
-  <h1>Register</h1>
-
+  
   <form action="/register" method="POST">
+    <h1>Register</h1>
 
-    <label for="name_input">Name</label>
-    <input id="name_input" name="name" type="text" minlength="3" maxlength="30" required>
+    <div class="separate_div">
+      <label for="name_input">Name</label>
+      <input id="name_input" name="name" type="text" minlength="3" maxlength="30" required>
+    </div>
 
-    <label for="email_input">Email</label>
-    <input id="email_input" name="email" type="email" required>
+    <div class="separate_div">
+      <label for="email_input">Email</label>
+      <input id="email_input" name="email" type="email" required>
+    </div>
 
-    <label for="password_input">Password</label>
-    <input id="password_input" name="password" type="password" minlength="8" required>
+    <div class="separate_div">
+      <label for="password_input">Password</label>
+      <input id="password_input" name="password" type="password" minlength="8" required>
+    </div>
 
-    <label for="country_input">Country</label>
-    <select name="country" id="country_input">
-      <option value="colombia">Colombia</option>
-      <option value="mexico">Mexico</option>
-      <option value="usa">USA</option>
-      <option value="españa">España</option>
-      <option value="brasil">Brasil</option>
-    </select>
+    <div class="separate_div">
+      <label for="country_input">Country</label>
+      <select name="country" id="country_input">
+        <option value="colombia">Colombia</option>
+        <option value="mexico">Mexico</option>
+        <option value="usa">USA</option>
+        <option value="españa">España</option>
+        <option value="brasil">Brasil</option>
+      </select>
+    </div>
+
+
+
 
     <label>Account type:</label>
-    
-    <label for="personal">Personal</label>
-    <input id="personal" name="acc_type" value="personal" type="radio" required>
-    <label for="business">Business</label>
-    <input id="business" name="acc_type" value="business" type="radio">
+
+    <div>
+      <input id="personal" name="acc_type" value="personal" type="radio" required>
+      <label for="personal">Personal</label>
+      
+      <input id="business" name="acc_type" value="business" type="radio">
+      <label for="business">Business</label>
+    </div>
 
     <button type="submit">Register</button>
 
