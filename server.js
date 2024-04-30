@@ -10,9 +10,18 @@ app.listen(3000, ()=>{
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'view/css')));
 
 app.get("/", (req, res) =>{
   res.sendFile(path.join(__dirname + "/view/src/index.html"));
+})
+
+app.get("/index", (req, res) => {
+  res.sendFile(path.join(__dirname + "/view/src/index.html"))
+})
+
+app.get("/main", (req, res) => {
+  res.sendFile(path.join(__dirname + "/view/src/main.html"))
 })
 
 app.get("/register", (req, res) => {
@@ -27,8 +36,17 @@ app.get("/list", (req, res) => {
   res.sendFile(path.join(__dirname + "/view/src/devices_list.html"))
 })
 
+app.get("/device", (req, res) => {
+  db.getDevices((err, devices) => {
+    if (err) {
+      return res.status(500).send('Error fetching devices');
+    }
+    res.json(devices);
+  });
+});
+
 // Controller/LoginControl
-app.post("/index", (req, res) => {
+app.post("/main", (req, res) => {
   const { email, password } = req.body;
   db.loginUser(email, password, (err, result) => {
     if (err) {

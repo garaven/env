@@ -28,7 +28,7 @@
           </a>
         </li>
         <li>
-          <a href="/list">
+          <a href="/list" id="listLink">
             <!-- Icon here? -->
             <span class="nav-item">Devices</span>
           </a>
@@ -57,6 +57,24 @@
 
   <main id="main">
   </main>
+  
+  <script>
+    const main_ = document.getElementById('main');
+    const links_ = document.querySelectorAll('#sidebar a');
+  
+    links_.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault(); // Evita el comportamiento predeterminado del enlace
+        if (link.id === 'listLink') { // Verifica si el enlace clickeado es el enlace "List"
+          fetch(link.href)
+            .then(response => response.text())
+            .then(html => {
+              main_.innerHTML = html;
+            });
+        }
+      });
+    });
+  </script>
   
 </body>
 

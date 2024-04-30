@@ -57,8 +57,20 @@ function addDevice(name, brand, consumption, usage_time, callback) {
     });
 }
 
+function getDevices(callback) {
+  const sql = `SELECT * FROM device`;
+  db.query(sql, (err, devices) => {
+    if (err) {
+      console.error('Error on database:', err);
+      return callback(err);
+    }
+    callback(null, devices);
+  });
+}
+
 module.exports = {
   registerUser,
   loginUser,
-  addDevice
+  addDevice,
+  getDevices
 };
