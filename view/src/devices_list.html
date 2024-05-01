@@ -19,7 +19,7 @@
           <th scope="col">Power Consumption</th>
           <th scope="col">Usage Time</th>
           <th scope="col">Date</th>
-          <!-- <th scope="col">Actions</th> -->
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody id="tbody">
@@ -45,6 +45,31 @@
             row.insertCell(2).textContent = device.consumption;
             row.insertCell(3).textContent = device.usage_time;
             row.insertCell(4).textContent = device.date.substring(0, 10);
+
+            var editButton = document.createElement("button");
+            editButton.textContent = "Edit";
+            editButton.onclick = function() {
+              fetch(`/edit-form?deviceId=${device.id}`)
+                .then(response => response.text())
+                .then(html => {
+                  document.body.innerHTML = html;
+                })
+                .catch(error => {
+                  console.error('Error fetching edit form:', error);
+                });
+            };
+
+            var deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.onclick = function() {
+              // Aquí puedes manejar la lógica para eliminar el dispositivo
+              console.log("Eliminar dispositivo:", device);
+            };
+
+            // Agregar botones a la celda de acciones
+            var actionsCell = row.insertCell(5);
+            actionsCell.appendChild(editButton);
+            actionsCell.appendChild(deleteButton);
           });
         })
         .catch(error => {

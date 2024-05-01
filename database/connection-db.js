@@ -68,9 +68,22 @@ function getDevices(callback) {
   });
 }
 
+function updateDevice(brand, consumption, usage_time, name, callback) {
+  const sql = `UPDATE device SET brand = ?, consumption = ?, usage_time = ? WHERE name = ?`;
+  db.query(sql, [brand, consumption, usage_time, name], (err, result) => {
+    if (err) {
+      console.error('Error al actualizar el dispositivo en la base de datos:', err);
+      return res.status(500).send('Error al actualizar el dispositivo');
+    }
+    console.log('Dispositivo actualizado en la base de datos:', result);
+    res.send("Device updated successfully");
+  });
+}
+
 module.exports = {
   registerUser,
   loginUser,
   addDevice,
-  getDevices
+  getDevices,
+  updateDevice
 };

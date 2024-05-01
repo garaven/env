@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Device info</title>
+  <link rel="stylesheet" href="../css/font.css">
+</head>
+<body>
+  <div class="container">
+    <form action="/edit" method="POST" onsubmit="submitForm(event)" class="form">
+      <h2 class="title">Edit device</h2>
+        <div>
+          <label for="id">ID</label>
+          <input type="text" id="id" name="id">
+        </div>
+        <div>
+          <label for="device-name">Device Name</label>
+          <input type="text" id="name" name="name">
+        </div>
+        <div>
+          <label for="brand">Brand</label>
+          <input type="text" id="brand" name="brand">
+        </div>
+        <div>
+          <label for="power-consumption">Power Consumption (kWh)</label>
+          <input type="number" id="consumption" name="consumption">
+        </div>
+        <div>
+          <label for="usage-time">Usage Time (in hours)</label>
+          <input type="number" id="usage_time" name="usage_time">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    function submitForm(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const deviceId = event.target.getAttribute("id");
+      fetch(`/edit/${deviceId}`, {
+        method: 'PUT',
+        body: formData
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error al editar el dispositivo');
+        }
+        window.location.href = '/main';
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+    
+  </script>
+</body>
+
+<style>
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .container {
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.375rem;
+    width: 100%;
+  }
+
+  .title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    text-align: center;
+    color: #000;
+    margin-bottom: 1rem;
+  }
+
+  .form > * + * {
+    margin-top: 1rem;
+  }
+
+  label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 2px;
+  }
+
+  .form {
+    width: 300px;
+    box-shadow: 0 0 10px #cfcfcf;
+    padding: 20px;
+  }
+
+  input {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #a0aec0;
+    padding: 0.5rem;
+    width: 100%;
+    border-width: 1px;
+    /* border-radius: 0.375rem; */
+    /* box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); */
+    /* outline: 2px solid transparent; */
+    /* outline-offset: 2px; */
+  }
+  
+  input:focus {
+    border-color: #3b82f6;
+    box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.5), 0 0 0 3px rgba(59, 130, 246, 0.5);
+  }
+
+  button {
+    background-color: #5394fd;
+    color: #fff;
+    padding: 0.5rem;
+    /* border-radius: 0.5rem; */
+    width: 100%;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #3b82f6;
+  } 
+
+</style>
+</html>
