@@ -70,7 +70,6 @@ app.post("/register", (req, res) =>{
 // Controller/AddControl
 app.post("/add", (req, res) => {
   const { name, brand, consumption, usage_time } = req.body;
-  db.addDevice(name, brand, consumption, usage_time, (err, result) => {
     db.addDevice(name, brand, consumption, usage_time, (err, result) =>{
       if (err) {
         return res.status(500).send('Error registering device');
@@ -78,4 +77,3 @@ app.post("/add", (req, res) => {
       res.send('Device registered sucesfully');
     })
   })
-})

@@ -28,7 +28,7 @@
           </a>
         </li>
         <li>
-          <a href="/list" id="listLink">
+          <a href="/list" onclick="loadData()">
             <!-- Icon here? -->
             <span class="nav-item">Devices</span>
           </a>
@@ -58,24 +58,6 @@
   <main id="main">
   </main>
   
-  <script>
-    const main_ = document.getElementById('main');
-    const links_ = document.querySelectorAll('#sidebar a');
-  
-    links_.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault(); // Evita el comportamiento predeterminado del enlace
-        if (link.id === 'listLink') { // Verifica si el enlace clickeado es el enlace "List"
-          fetch(link.href)
-            .then(response => response.text())
-            .then(html => {
-              main_.innerHTML = html;
-            });
-        }
-      });
-    });
-  </script>
-  
 </body>
 
 <style>
@@ -87,10 +69,11 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
 
+  body {
+    display: flex;
+  }
+
   .aside {
-    position: absolute;
-    top: 0;
-    left: 0;
     height: 100vh;
     width: 280px;
     background-color: #09151c;
@@ -125,6 +108,10 @@
   ul {
     list-style-type: none;
   }
+
+  main {
+    width: 100%;
+  }
 </style>
 
 <script>
@@ -137,9 +124,21 @@
       fetch(link.href)
         .then(response => response.text())
         .then(html => {
+          // Cargar el HTML en el elemento main
           main.innerHTML = html;
+
+          // Buscar y ejecutar scripts embebidos en el HTML cargado
+          const scripts = main.querySelectorAll('script');
+          scripts.forEach(script => {
+            // Crear un nuevo script para ejecutar el código
+            const newScript = document.createElement('script');
+            newScript.text = script.text;
+            // Agregar el nuevo script al final del cuerpo para que se ejecute
+            document.body.appendChild(newScript);
+          });
         });
     });
   });
 </script>
+
 </html>

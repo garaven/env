@@ -27,14 +27,17 @@
   </div>
 
   <script>
-    window.onload = function() {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "/device", true);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          var devices = JSON.parse(xhr.responseText);
-          var tableBody = document.getElementById("tbody");
-          devices.forEach(function(device) {
+    // Función para cargar los datos
+    function loadData() {
+      fetch('/device')
+        .then(response => response.json())
+        .then(devices => {
+          // Limpiar el tbody
+          document.getElementById("tbody").innerHTML = '';
+
+          // Insertar cada dispositivo en la tabla
+          devices.forEach(device => {
+            var tableBody = document.getElementById("tbody");
             var row = tableBody.insertRow();
             row.insertCell(0).textContent = device.name;
             row.insertCell(1).textContent = device.brand;
@@ -42,10 +45,13 @@
             row.insertCell(3).textContent = device.usage_time;
             row.insertCell(4).textContent = device.date;
           });
-        }
-      };
-      xhr.send();
-    };
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    }
+
+    loadData();
   </script>
 </body>
 
@@ -97,5 +103,6 @@
     border-color: #4a5568;
     border-width: 1px;
   }
+
 </style>
 </html>
