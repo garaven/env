@@ -14,6 +14,7 @@
     <table class="table">
       <thead class="thead">
         <tr class="first-row">
+          <th scope="col">ID</th>
           <th scope="col">Device Name</th>
           <th scope="col">Brand</th>
           <th scope="col">Power Consumption</th>
@@ -38,18 +39,26 @@
 
           // Insertar cada dispositivo en la tabla
           devices.forEach(device => {
-            var tableBody = document.getElementById("tbody");
-            var row = tableBody.insertRow();
-            row.insertCell(0).textContent = device.name;
-            row.insertCell(1).textContent = device.brand;
-            row.insertCell(2).textContent = device.consumption;
-            row.insertCell(3).textContent = device.usage_time;
-            row.insertCell(4).textContent = device.date.substring(0, 10);
+            let tableBody = document.getElementById("tbody");
+            let row = tableBody.insertRow();
+            let cellId = row.insertCell(0);
+            cellId.textContent = device.id;
+            cellId.classList.add("col-id");
+            row.insertCell(1).textContent = device.name;
+            row.insertCell(2).textContent = device.brand;
+            row.insertCell(3).textContent = device.consumption;
+            row.insertCell(4).textContent = device.usage_time;
+            row.insertCell(5).textContent = device.date.substring(0, 10);
 
-            var editButton = document.createElement("button");
+            let editButton = document.createElement("button");
             editButton.textContent = "Edit";
             editButton.onclick = function() {
-              fetch(`/edit-form?deviceId=${device.id}`)
+              let button_row = editButton.closest('tr');
+              let id_row = button_row.querySelector('.col-id');
+              const id_device = id_row.textContent;
+              console.log(id_device);
+              ////
+              fetch(`/edit-form?deviceId=${id_device}`)
                 .then(response => response.text())
                 .then(html => {
                   document.body.innerHTML = html;
@@ -57,9 +66,11 @@
                 .catch(error => {
                   console.error('Error fetching edit form:', error);
                 });
+              
+                window.location.href = `/edit_device.html?id=${id_device}`;
             };
 
-            var deleteButton = document.createElement("button");
+            let deleteButton = document.createElement("button");
             deleteButton.textContent = "Delete";
             deleteButton.onclick = function() {
               // Aquí puedes manejar la lógica para eliminar el dispositivo
@@ -67,7 +78,7 @@
             };
 
             // Agregar botones a la celda de acciones
-            var actionsCell = row.insertCell(5);
+            let actionsCell = row.insertCell(6);
             actionsCell.appendChild(editButton);
             actionsCell.appendChild(deleteButton);
           });
@@ -131,6 +142,14 @@
     background-color: #78abfd;
     top: 0;
     left: 0;
+  }
+
+  td button {
+    margin-left: 5px;
+  }
+
+  .col-id {
+    background-color: #cfcfcf;
   }
 
 </style>

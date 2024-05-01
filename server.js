@@ -81,14 +81,21 @@ app.post("/add", (req, res) => {
     })
   })
 
-app.put("/edit", (req, res) => {
+
+app.get("/edit_device.html", (req, res) => {
+  const deviceId = req.query.id;
+  res.sendFile(path.join(__dirname, '/public/edit_device.html'));
+});
+
+app.put("/edit/:id", (req, res) => {
   const deviceId = req.params.id;
   const { name, brand, consumption, usage_time } = req.body;
-    db.updateDevice(name, brand, consumption, usage_time, (err, result) =>{
-      if (err) {
-        console.error('Error al actualizar el dispositivo en la base de datos:', err);
-        return res.status(500).send('Error al actualizar el dispositivo');
-      }
-      console.log('Dispositivo actualizado en la base de datos:', result);
-    })
-  })
+  db.updateDevice(deviceId, name, brand, consumption, usage_time, (err, result) =>{
+    if (err) {
+      console.error('Error al actualizar el dispositivo en la base de datos:', err);
+      return res.status(500).send('Error al actualizar el dispositivo');
+    }
+    console.log('Dispositivo actualizado en la base de datos:', result);
+    res.send('Dispositivo actualizado exitosamente');
+  });
+});

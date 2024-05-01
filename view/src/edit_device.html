@@ -35,25 +35,55 @@
   </div>
 
   <script>
-    function submitForm(event) {
-      event.preventDefault();
-      const formData = new FormData(event.target);
-      const deviceId = event.target.getAttribute("id");
-      fetch(`/edit/${deviceId}`, {
-        method: 'PUT',
-        body: formData
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Error al editar el dispositivo');
-        }
-        window.location.href = '/main';
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    // Obtener el ID del dispositivo de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const deviceId = urlParams.get('id');
+
+    // Función para cargar la información del dispositivo en el formulario
+    function loadDeviceInfo(deviceId) {
+        // Realizar una solicitud para obtener la información del dispositivo utilizando el ID
+        fetch(`/device/${deviceId}`)
+            .then(response => response.json())
+            .then(device => {
+                // Llenar el formulario con la información del dispositivo
+                document.getElementById('id').value = device.id;
+                document.getElementById('name').value = device.name;
+                document.getElementById('brand').value = device.brand;
+                document.getElementById('consumption').value = device.consumption;
+                document.getElementById('usage_time').value = device.usage_time;
+                
+                // Deshabilitar la edición del ID
+                document.getElementById('id').disabled = true;
+            })
+            .catch(error => {
+                console.error('Error fetching device information:', error);
+            });
     }
-    
+
+    // Llamar a la función para cargar la información del dispositivo al cargar la página
+    window.onload = function() {
+        loadDeviceInfo(deviceId);
+    };
+
+    // Función para enviar el formulario de edición
+    function submitForm(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        fetch(`/edit/${deviceId}`, {
+            method: 'PUT',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al editar el dispositivo');
+            }
+            window.location.href = '/main';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
   </script>
 </body>
 
