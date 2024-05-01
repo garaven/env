@@ -10,7 +10,7 @@ app.listen(3000, ()=>{
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'view/css')));
+app.use(express.static('view'));
 
 app.get("/", (req, res) =>{
   res.sendFile(path.join(__dirname + "/view/src/index.html"));
