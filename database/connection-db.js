@@ -37,8 +37,7 @@ function loginUser(email, password, callback) {
           return callback(null, null);
       }
       const user = result[0];
-      if (user.password == password) {
-        // La contraseña no coincide
+      if (user.password === password) {
         return callback(null, null);
       }
       console.log('Inicio de sesión exitoso. Información del usuario:', user);

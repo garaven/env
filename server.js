@@ -82,37 +82,27 @@ app.post("/add", (req, res) => {
     })
   })
 
-
-// Obtener información de un dispositivo para editar
-app.get("/edit/:id", (req, res) => {
+// Ruta para mostrar el formulario de edición de un dispositivo específico
+router.get('/devices/edit/:id', (req, res) => {
   const deviceId = req.params.id;
-  db.getDeviceById(deviceId, (err, device) => {
-    if (err) {
-      console.error('Error fetching device from database:', err);
-      return res.status(500).send('Error fetching device');
-    }
-    res.json(device);
-  });
+  // Aquí deberías realizar una consulta a tu base de datos para obtener la información del dispositivo con el ID proporcionado
+  // Luego renderiza la vista de edición de dispositivo, pasando la información del dispositivo como contexto
+  res.render('edit-device', { device: device }); // device es una variable que contiene la información del dispositivo
 });
 
-// Actualizar la información de un dispositivo
-app.put("/device/:id", (req, res) => {
+// Ruta para manejar la actualización de un dispositivo
+router.post('/devices/edit/:id', (req, res) => {
   const deviceId = req.params.id;
-  const { name, brand, consumption, usage_time } = req.body;
-  db.updateDevice(deviceId, name, brand, consumption, usage_time, (err, result) => {
-    if (err) {
-      console.error('Error updating device in database:', err);
-      return res.status(500).send('Error updating device');
-    }
-    console.log('Device updated in database:', result);
-    res.send('Device updated successfully');
-  });
+  const { deviceName, brand, powerConsumption, usageTime } = req.body;
+  // Aquí deberías realizar una actualización en tu base de datos con los nuevos datos del dispositivo
+  // utilizando el ID proporcionado
+  res.redirect('/devices'); // Redirige de vuelta a la lista de dispositivos después de la edición
 });
 
-
+// DELETE
   app.put("/device/:id/status", (req, res) => {
     const deviceId = req.params.id;
-    const { active } = req.body; // El cuerpo de la solicitud debe contener { active: 0 }
+    const { active } = req.body;
     db.updateDeviceStatus(deviceId, active, (err, result) => {
       if (err) {
         console.error('Error al actualizar el estado del dispositivo:', err);
@@ -122,3 +112,8 @@ app.put("/device/:id", (req, res) => {
       res.send('Estado del dispositivo actualizado exitosamente');
     });
   });
+
+// REDIRIGIR AL INDEX
+app.get('/logout', (req, res) => {
+  res.redirect('/');
+});

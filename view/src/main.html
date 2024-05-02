@@ -58,7 +58,7 @@
         <li>
           <!-- Icon here -->
           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-logout"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
-          <a href="/">
+          <a id="logout" href="/logout">
             <span class="nav-item">Log out</span>
           </a>
         </li>
@@ -152,29 +152,43 @@
 
 <script>
   const main = document.getElementById('main');
-  const links = document.querySelectorAll('#sidebar a');
+const links = document.querySelectorAll('#sidebar a');
 
-  links.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
+links.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    if (link.id === 'logout') {
+      fetch('/logout', {
+        method: 'GET',
+        credentials: 'same-origin'
+      })
+      .then(response => {
+        if (response.redirected) {
+          window.location.href = response.url;
+        }
+      })
+      .catch(error => {
+        console.error('Error al cerrar sesión:', error);
+      });
+    } else {
       fetch(link.href)
-        .then(response => response.text())
-        .then(html => {
-          // Cargar el HTML en el elemento main
-          main.innerHTML = html;
+      .then(response => response.text())
+      .then(html => {
+        main.innerHTML = html;
 
-          // Buscar y ejecutar scripts embebidos en el HTML cargado
-          const scripts = main.querySelectorAll('script');
-          scripts.forEach(script => {
-            // Crear un nuevo script para ejecutar el código
-            const newScript = document.createElement('script');
-            newScript.text = script.text;
-            // Agregar el nuevo script al final del cuerpo para que se ejecute
-            document.body.appendChild(newScript);
-          });
+        const scripts = main.querySelectorAll('script');
+        scripts.forEach(script => {
+          const newScript = document.createElement('script');
+          newScript.text = script.text;
+          document.body.appendChild(newScript);
         });
-    });
+      })
+      .catch(error => {
+        console.error('Error al cargar la página:', error);
+      });
+    }
   });
+});
 </script>
 
 </html>
