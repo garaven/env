@@ -68,14 +68,14 @@ function getDevices(callback) {
   });
 }
 
-function updateDevice(deviceId, brand, consumption, usage_time, callback) {
-  const sql = `UPDATE device SET brand = ?, consumption = ?, usage_time = ? WHERE id = ?`;
-  db.query(sql, [brand, consumption, usage_time, deviceId], (err, result) => {
+function updateDevice(deviceId, name, brand, consumption, usage_time, callback) {
+  const sql = `UPDATE device SET name = ?, brand = ?, consumption = ?, usage_time = ? WHERE id = ?`;
+  db.query(sql, [name, brand, consumption, usage_time, deviceId], (err, result) => {
     if (err) {
-      console.error('Error al actualizar el dispositivo en la base de datos:', err);
+      console.error('Error updating device:', err);
       return callback(err);
     }
-    console.log('Dispositivo actualizado en la base de datos:', result);
+    console.log('Device updated successfully:', result);
     callback(null, result);
   });
 }
