@@ -82,20 +82,40 @@ app.post("/add", (req, res) => {
   })
 
 
-app.get("/edit_device.html", (req, res) => {
-  const deviceId = req.query.id;
-  res.sendFile(path.join(__dirname, '/public/edit_device.html'));
-});
-
-app.put("/edit/:id", (req, res) => {
-  const deviceId = req.params.id;
-  const { name, brand, consumption, usage_time } = req.body;
-  db.updateDevice(deviceId, name, brand, consumption, usage_time, (err, result) =>{
-    if (err) {
-      console.error('Error al actualizar el dispositivo en la base de datos:', err);
-      return res.status(500).send('Error al actualizar el dispositivo');
-    }
-    console.log('Dispositivo actualizado en la base de datos:', result);
-    res.send('Dispositivo actualizado exitosamente');
+  app.get("/edit/:id", (req, res) => {
+    const deviceId = req.params.id;
+    db.getDeviceById(deviceId, (err, device) => {
+      if (err) {
+        console.error('Error al obtener el dispositivo de la base de datos:', err);
+        return res.status(500).send('Error al obtener el dispositivo');
+      }
+      res.json(device);
+    });
   });
-});
+  
+  // Actualizar la información de un dispositivo
+  app.put("/edit/:id", (req, res) => {
+    const deviceId = req.params.id;
+    const { name, brand, consumption, usage_time } = req.body;
+    db.updateDevice(deviceId, name, brand, consumption, usage_time, (err, result) => {
+      if (err) {
+        console.error('Error al actualizar el dispositivo en la base de datos:', err);
+        return res.status(500).send('Error al actualizar el dispositivo');
+      }
+      console.log('Dispositivo actualizado en la base de datos:', result);
+      res.send('Dispositivo actualizado exitosamente');
+    });
+  });
+
+  app.put("/device/:id/status", (req, res) => {
+    const deviceId = req.params.id;
+    const { active } = req.body; // El cuerpo de la solicitud debe contener { active: 0 }
+    db.updateDeviceStatus(deviceId, active, (err, result) => {
+      if (err) {
+        console.error('Error al actualizar el estado del dispositivo:', err);
+        return res.status(500).send('Error al actualizar el estado del dispositivo');
+      }
+      console.log('Estado del dispositivo actualizado:', result);
+      res.send('Estado del dispositivo actualizado exitosamente');
+    });
+  });

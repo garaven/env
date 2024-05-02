@@ -37,7 +37,7 @@ function loginUser(email, password, callback) {
           return callback(null, null);
       }
       const user = result[0];
-      if (user.password !== password) {
+      if (user.password == password) {
         // La contraseña no coincide
         return callback(null, null);
       }
@@ -47,8 +47,8 @@ function loginUser(email, password, callback) {
 }
 
 function addDevice(name, brand, consumption, usage_time, callback) {
-  const sql = `INSERT INTO device(name, brand, consumption, usage_time, date) VALUES (?, ?, ?, ?, NOW())`;
-  db.query(sql, [name, brand, consumption, usage_time], (err, result) => {
+  const sql = `INSERT INTO device(name, brand, consumption, usage_time, date, active) VALUES (?, ?, ?, ?, NOW(), ?)`;
+  db.query(sql, [name, brand, consumption, usage_time, 1], (err, result) => {
     if (err) {
       console.error('Error on database:', err);
       return callback(err);
@@ -68,22 +68,48 @@ function getDevices(callback) {
   });
 }
 
-function updateDevice(brand, consumption, usage_time, name, callback) {
-  const sql = `UPDATE device SET brand = ?, consumption = ?, usage_time = ? WHERE name = ?`;
-  db.query(sql, [brand, consumption, usage_time, name], (err, result) => {
+function updateDevice(deviceId, brand, consumption, usage_time, callback) {
+  const sql = `UPDATE device SET brand = ?, consumption = ?, usage_time = ? WHERE id = ?`;
+  db.query(sql, [brand, consumption, usage_time, deviceId], (err, result) => {
     if (err) {
       console.error('Error al actualizar el dispositivo en la base de datos:', err);
-      return res.status(500).send('Error al actualizar el dispositivo');
+      return callback(err);
     }
     console.log('Dispositivo actualizado en la base de datos:', result);
-    res.send("Device updated successfully");
+    callback(null, result);
   });
 }
+
+function getActiveDevices(callback) {
+  const sql = `SELECT * FROM device WHERE active = 1`;
+  db.query(sql, (err, devices) => {
+    if (err) {
+      console.error('Error on database:', err);
+      return callback(err);
+    }
+    callback(null, devices);
+  });
+}
+
+function updateDeviceStatus(deviceId, active, callback) {
+  const sql = `UPDATE device SET active = ? WHERE id = ?`;
+  db.query(sql, [active, deviceId], (err, result) => {
+    if (err) {
+      console.error('Error updating device status:', err);
+      return callback(err);
+    }
+    console.log('Device status updated successfully:', result);
+    callback(null, result);
+  });
+}
+
 
 module.exports = {
   registerUser,
   loginUser,
   addDevice,
   getDevices,
-  updateDevice
+  updateDevice,
+  getActiveDevices,
+  updateDeviceStatus
 };

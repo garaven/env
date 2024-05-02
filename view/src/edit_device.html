@@ -8,11 +8,11 @@
 </head>
 <body>
   <div class="container">
-    <form action="/edit" method="POST" onsubmit="submitForm(event)" class="form">
+    <form id="editForm" class="form">
       <h2 class="title">Edit device</h2>
         <div>
           <label for="id">ID</label>
-          <input type="text" id="id" name="id">
+          <input type="text" id="id" name="id" disabled>
         </div>
         <div>
           <label for="device-name">Device Name</label>
@@ -35,14 +35,13 @@
   </div>
 
   <script>
-    // Obtener el ID del dispositivo de la URL
     const urlParams = new URLSearchParams(window.location.search);
     const deviceId = urlParams.get('id');
 
     // Función para cargar la información del dispositivo en el formulario
     function loadDeviceInfo(deviceId) {
         // Realizar una solicitud para obtener la información del dispositivo utilizando el ID
-        fetch(`/device/${deviceId}`)
+        fetch(`/edit/${deviceId}`)
             .then(response => response.json())
             .then(device => {
                 // Llenar el formulario con la información del dispositivo
@@ -66,7 +65,7 @@
     };
 
     // Función para enviar el formulario de edición
-    function submitForm(event) {
+    document.getElementById('editForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
         fetch(`/edit/${deviceId}`, {
@@ -82,8 +81,7 @@
         .catch(error => {
             console.error('Error:', error);
         });
-    }
-
+    });
   </script>
 </body>
 
