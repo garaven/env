@@ -1,10 +1,10 @@
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
-  host: 'localhost',
+  host: '192.168.41.108',
   database: 'env',
-  user: 'root',
-  password: ''
+  user: 'env',
+  password: 'envirosense'
 });
 
 db.connect(err => {
@@ -67,18 +67,6 @@ function getDevices(callback) {
   });
 }
 
-function updateDevice(deviceId, name, brand, consumption, usage_time, callback) {
-  const sql = `UPDATE device SET name = ?, brand = ?, consumption = ?, usage_time = ? WHERE id = ?`;
-  db.query(sql, [name, brand, consumption, usage_time, deviceId], (err, result) => {
-    if (err) {
-      console.error('Error updating device:', err);
-      return callback(err);
-    }
-    console.log('Device updated successfully:', result);
-    callback(null, result);
-  });
-}
-
 function getActiveDevices(callback) {
   const sql = `SELECT * FROM device WHERE active = 1`;
   db.query(sql, (err, devices) => {
@@ -102,12 +90,35 @@ function updateDeviceStatus(deviceId, active, callback) {
   });
 }
 
+function getDevice(deviceId, callback) {
+  const sql = `SELECT * FROM device WHERE id = ?`;
+  db.query(sql, [deviceId], (err, device) => {
+    if (err) {
+      console.error('Error fetching device from database:', err);
+      return callback(err);
+    }
+    callback(null, device[0]);
+  });
+}
+
+function updateDevice(deviceId, name, brand, consumption, usage_time, callback) {
+  const sql = `UPDATE device SET name = ?, brand = ?, consumption = ?, usage_time = ? WHERE id = ?`;
+  db.query(sql, [name, brand, consumption, usage_time, deviceId], (err, result) => {
+    if (err) {
+      console.error('Error updating device in database:', err);
+      return callback(err);
+    }
+    callback(null, result);
+  });
+}
+
 
 module.exports = {
   registerUser,
   loginUser,
   addDevice,
   getDevices,
+  getDevice,
   updateDevice,
   getActiveDevices,
   updateDeviceStatus

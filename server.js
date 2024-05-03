@@ -82,23 +82,6 @@ app.post("/add", (req, res) => {
     })
   })
 
-// Ruta para mostrar el formulario de edición de un dispositivo específico
-router.get('/devices/edit/:id', (req, res) => {
-  const deviceId = req.params.id;
-  // Aquí deberías realizar una consulta a tu base de datos para obtener la información del dispositivo con el ID proporcionado
-  // Luego renderiza la vista de edición de dispositivo, pasando la información del dispositivo como contexto
-  res.render('edit-device', { device: device }); // device es una variable que contiene la información del dispositivo
-});
-
-// Ruta para manejar la actualización de un dispositivo
-router.post('/devices/edit/:id', (req, res) => {
-  const deviceId = req.params.id;
-  const { deviceName, brand, powerConsumption, usageTime } = req.body;
-  // Aquí deberías realizar una actualización en tu base de datos con los nuevos datos del dispositivo
-  // utilizando el ID proporcionado
-  res.redirect('/devices'); // Redirige de vuelta a la lista de dispositivos después de la edición
-});
-
 // DELETE
   app.put("/device/:id/status", (req, res) => {
     const deviceId = req.params.id;
@@ -112,6 +95,35 @@ router.post('/devices/edit/:id', (req, res) => {
       res.send('Estado del dispositivo actualizado exitosamente');
     });
   });
+
+
+  // Ruta para mostrar el formulario de edición
+app.get("/edit/:id", (req, res) => {
+  res.sendFile(path.join(__dirname + "/view/src/edit_device.html"));
+});
+
+// Ruta para obtener los datos del dispositivo para editar
+app.get("/device/:id", (req, res) => {
+  const deviceId = req.params.id;
+  db.getDevice(deviceId, (err, device) => {
+    if (err) {
+      return res.status(500).send('Error fetching device');
+    }
+    res.json(device);
+  });
+});
+
+// Ruta para actualizar los datos del dispositivo
+app.put("/device/:id", (req, res) => {
+  const deviceId = req.params.id;
+  const { name, brand, consumption, usage_time } = req.body;
+  db.updateDevice(deviceId, name, brand, consumption, usage_time, (err, result) => {
+    if (err) {
+      return res.status(500).send('Error updating device');
+    }
+    res.send('Device updated successfully');
+  });
+});
 
 // REDIRIGIR AL INDEX
 app.get('/logout', (req, res) => {

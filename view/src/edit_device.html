@@ -35,9 +35,35 @@
   </div>
 
   <script>
+    // Función para enviar el formulario de edición
+document.getElementById('editForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const jsonData = {};
+  formData.forEach((value, key) => {
+    jsonData[key] = value;
+  });
+  fetch(`/device/${deviceId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(jsonData)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Error editing device');
+    }
+    window.location.href = '/list'; // Redirigir a la lista de dispositivos después de editar
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+});
+
     const urlParams = new URLSearchParams(window.location.search);
     const deviceId = urlParams.get('deviceId');
-
+  
     // Función para cargar la información del dispositivo en el formulario
     function loadDeviceInfo(deviceId) {
       // Realizar una solicitud para obtener la información del dispositivo utilizando el ID
@@ -58,12 +84,12 @@
           console.error('Error fetching device information:', error);
         });
     }
-
+  
     // Llamar a la función para cargar la información del dispositivo al cargar la página
     window.onload = function() {
       loadDeviceInfo(deviceId);
     };
-
+  
     // Función para enviar el formulario de edición
     document.getElementById('editForm').addEventListener('submit', function(event) {
       event.preventDefault();
@@ -76,7 +102,7 @@
         if (!response.ok) {
           throw new Error('Error editing device');
         }
-        window.location.href = '/list';
+        window.location.href = '/list'; // Redirigir a la lista de dispositivos después de editar
       })
       .catch(error => {
         console.error('Error:', error);
