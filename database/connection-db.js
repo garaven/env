@@ -1,10 +1,10 @@
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
-  host: '192.168.41.108',
+  host: 'localhost',
   database: 'env',
-  user: 'env',
-  password: 'envirosense'
+  user: 'root',
+  password: ''
 });
 
 db.connect(err => {
@@ -27,7 +27,7 @@ function registerUser(name, email, password, acc_type, country, callback){
 }
 
 function loginUser(email, password, callback) {
-  const sql = `SELECT * FROM user WHERE email = ?`;
+  const sql = `SELECT password FROM user WHERE email = ?`;
   db.query(sql, [email], (err, result) => {
       if (err) {
           console.error('Error al obtener usuario de la base de datos:', err);

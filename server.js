@@ -50,7 +50,7 @@ app.get("/edit-form", (req, res) => {
 });
 
 // Controller/LoginControl
-app.post("/main", (req, res) => {
+app.post("/login", (req, res) => {
   const { email, password } = req.body;
   db.loginUser(email, password, (err, result) => {
     if (err) {
