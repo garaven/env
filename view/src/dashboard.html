@@ -8,16 +8,74 @@
 </head>
 <body>
   
-  <section>
-    <article id="total_usage">
-      <p>Total usage</p>
-      <!-- Variable -->
-      <p> kWh</p>
+  <section class="info">
+    <article id="total_usage" class="card">
+      <span class="usage">Total usage</span>
+      <span class="total-usage"> kWh</span>
     </article>
-    <article id="usage_limit">
+    <article id="usage_limit" class="card">
       <p>Usage limitation</p>
     </article>
   </section>
 
 </body>
+
+<style>
+
+  .info {
+    display: flex;
+    margin: 3rem;
+    gap: 1rem;
+    
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem;
+    border-width: 2px;
+    border-color: #d9d9d9;
+    border-radius: 0.5rem;
+    justify-content: space-between;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .usage {
+    font-weight: 600;
+  }
+
+  .total-usage {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .usage-limitation {
+    font-weight: 600;
+  }
+
+  .progress-bar {
+    position: relative;
+    overflow: hidden;
+    height: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .progress-bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #3b82f6;
+  }
+
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    padding: 0 0.5rem;
+  }
+
+</style>
 </html>
