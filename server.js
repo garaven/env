@@ -59,7 +59,11 @@ app.post("/login", (req, res) => {
     if(result === false) {
       return res.status(404).send('Contraseña incorrecta');
     } else {
+      if(result === 'notfound') {
+        return res.status(500).send('User not found');
+      } else {
       res.sendFile(path.join(__dirname + "/view/src/main.html"));
+      }
     }
   })
 })

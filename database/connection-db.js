@@ -43,7 +43,7 @@ function loginUser(email, password, callback) {
         callback(null, false);
       }
     } else {
-      console.log('User not found');
+      callback(null, 'notfound');
     }
   }
 )}
