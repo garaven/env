@@ -53,10 +53,14 @@ app.get("/edit-form", (req, res) => {
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
   db.loginUser(email, password, (err, result) => {
-    if (err) {
-      return res.status(500).send('User not found')
+    if(err) {
+      return res.status(500).send('Error al intentar iniciar sesión');
     }
-    res.sendFile(path.join(__dirname + "/view/src/main.html"));
+    if(result === false) {
+      return res.status(404).send('Contraseña incorrecta');
+    } else {
+      res.sendFile(path.join(__dirname + "/view/src/main.html"));
+    }
   })
 })
 
