@@ -7,39 +7,208 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/font.css">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
     form {
-      height: 350px;
+      display: block;
+      width: 350px;
+      height: auto;
+      padding: 30px;
+      font-size: 14px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #cfcfcf;
+    }
+
+    form h2 {
+      margin-bottom: 20px;
+    }
+
+    input[type='email'], input[type='password'] {
+      width: 100%;
+      height: 25px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #000;
+    }
+
+    .container_input {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      gap: 5px;
+      margin-bottom: 25px;
+    }
+
+    .separate_div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    button {
+      padding: 8px 0;
+      width: 100%;
+      border: none;
+      /* border: 2px solid #000; */
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      /* &:hover {
+
+      } */
+    }
+
+    label[for='email_input'], label[for='password_input'] {
+      font-weight: 500;
+    }
+
+    nav {
+      width: 100%;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav span {
+      font-size: 25px;
+    }
+
+    .nav_options {
+      width: 400px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+    }
+
+    nav li:last-child a {
+      border: 1px solid #000;
+      padding: 5px 20px;
+      border-radius: 12px;
+    }
+
+    nav ul {
+      list-style: none;
+      font-weight: 500;
+    }
+
+    nav svg {
+      cursor: pointer;
+    }
+
+    main {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex: 1;
+      width: 100%;
+      margin-bottom: 80px;
+    }
+
+    main article {
+      width: 500px;
+    }
+
+    article h1 {
+      text-wrap: balance;
+      font-size: 2.3rem;
+      margin-bottom: 30px;
+    }
+
+    article h1 + p {
+      margin-bottom: 50px;
+    }
+
+    main aside {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    aside {
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <form action="/login" method="POST">
-    <h2>Login now</h2>
+  <nav>
+    <span>Envirosense</span>
 
-    <div class="separate_div">
-      <label for="email_input">Email</label>
-      <input id="email_input" name="email" type="email" placeholder="Enter your email" required>
-    </div>
+    <ul class="nav_options">
+      <li>
+        <svg id="lightmode_icon"  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="#000"  stroke-width="1.5"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-sun"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>
+      </li>
+      
+      <li>
+        <a href="#">About us</a>
+      </li>
+      
+      <li>
+        <a href="/register">Sign up</a>
+      </li>
+    </ul>
+  </nav>
 
-    <div class="separate_div">
-      <label for="password_input">Password</label>
-      <input id="password_input" name="password" type="password" placeholder="Enter your password" required minlength="8">
-    </div>
+  <main>
 
-    <div class="separate_div">
-      <label for="rem_input">
-        <input id="rem_input" name="rem_input" type="checkbox" checked>Remember me
-      </label>
-      <a href="#">Forgot password?</a>
-    </div>
+    <article>
+      <h1>Transform your consumption into data</h1>
+      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nisi voluptatem sequi laborum vitae ex sit excepturi aperiam beatae, ipsa facilis error magni architecto consequatur dignissimos alias est totam sed cumque!</p>
+      <aside>
+        <div>
+          <p><span>+</span>2000</p>
+          <span>reviews</span>
+        </div>
+        <div>
+          <p><span>+</span>400</p>
+          <span>companies</span>
+        </div>
+        <div>
+          <p><span>-</span>75%</p>
+          <span>consumption</span>
+        </div>
+      </aside>
+    </article>
 
-    <button type="submit">Log in</button>
+    <form action="/login" method="POST">
+      <h2>Login now</h2>
+  
+      <div class="container_input">
+        <label for="email_input">Email</label>
+        <input id="email_input" name="email" type="email" placeholder="Enter your email" required>
+      </div>
+  
+      <div class="container_input">
+        <label for="password_input">Password</label>
+        <input id="password_input" name="password" type="password" placeholder="Enter your password" required minlength="8">
+      </div>
+  
+      <div class="separate_div">
+        <label for="rem_input">
+          <input id="rem_input" name="rem_input" type="checkbox" checked> Remember me
+        </label>
+        <a href="#">Forgot password?</a>
+      </div>
+  
+      <button type="submit">Log in</button>
+    </form>
+  </main>
 
-    <p>Don't have an account? -
-      <a href="/register">Sign up</a>
-    </p>
-  </form>
   
 </body>
 </html>
