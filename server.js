@@ -36,6 +36,10 @@ app.get("/list", (req, res) => {
   res.sendFile(path.join(__dirname + "/view/src/devices_list.html"))
 })
 
+app.get("/settings", (req, res) => {
+  res.sendFile(path.join(__dirname + "/view/src/settings.html"))
+})
+
 app.get("/device", (req, res) => {
   db.getDevices((err, devices) => {
     if (err) {
