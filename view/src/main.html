@@ -5,11 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
   <link rel="stylesheet" href="../css/font.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+    }
+
+    body {
+      display: flex;
+    }
+
+    aside {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 250px;
+      padding: 20px;
+      transition: all 0.5s ease;
+      border-right: 1px solid #000;
+      overflow: hidden;
+    }
+
+    .top {
+      color: #000;
+      text-align: center;
+      pointer-events: none;
+      font-size: x-large;
+    }
+    
+    hr {
+      margin: 15px 0;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+    }
+
+
+    #sidebar ul li a {
+      color: #000;
+      text-decoration: none;
+      display: block;
+      border: 1px solid #000;
+      border-radius: 3px;
+      padding: 5px 10px;
+      width: 100%;
+      transition: .2s ease all;
+      &:hover {
+        background-color: #cfcfcf;
+      }
+    }
+
+    li {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      list-style: none;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-height: 100vh;
+    }
+
+    nav div:last-child {
+      display: flex;
+      flex-direction: column;
+
+    }
+  </style>
 </head>
 <body>
 
   <aside>
-
     <div class="top">
       <span>Envirosense</span>
     </div>
@@ -47,20 +129,22 @@
           </li>
         </ul>
       </div>
-      <ul>
-        <li>
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-settings"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>
-          <a href="/settings">
-            <span class="nav-item">Settings</span>
-          </a>
-        </li>
-        <li>
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-logout"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
-          <a id="logout" href="/logout">
-            <span class="nav-item">Log out</span>
-          </a>
-        </li>
-      </ul> 
+      <div>
+        <ul class="options">
+          <li>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-settings"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>
+            <a href="/settings">
+              <span class="nav-item">Settings</span>
+            </a>
+          </li>
+          <li>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-logout"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
+            <a id="logout" href="/logout">
+              <span class="nav-item">Log out</span>
+            </a>
+          </li>
+        </ul> 
+      </div>
     </nav>
   </aside>
 
@@ -69,124 +153,45 @@
   
 </body>
 
-<style>
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
-  }
-
-  body {
-    display: flex;
-  }
-
-  aside {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 250px;
-    padding: 20px;
-    transition: all 0.5s ease;
-    border-right: 1px solid #000;
-    overflow: hidden;
-  }
-
-  .top {
-    color: #000;
-    text-align: center;
-    pointer-events: none;
-    font-size: x-large;
-  }
-  
-  hr {
-    margin: 15px 0;
-  }
-
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  nav {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
-  }
-
-
-  #sidebar ul li a {
-    color: #000;
-    text-decoration: none;
-    display: block;
-    border: 1px solid #000;
-    border-radius: 3px;
-    padding: 5px 10px;
-    width: 100%;
-    transition: .2s ease all;
-    &:hover {
-      background-color: #cfcfcf;
-    }
-  }
-
-  li {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    list-style: none;
-  }
-
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-height: 100vh;
-  }
-</style>
-
 <script>
   const main = document.getElementById('main');
-const links = document.querySelectorAll('#sidebar a');
+  const links = document.querySelectorAll('#sidebar a');
 
-links.forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    if (link.id === 'logout') {
-      fetch('/logout', {
-        method: 'GET',
-        credentials: 'same-origin'
-      })
-      .then(response => {
-        if (response.redirected) {
-          window.location.href = response.url;
-        }
-      })
-      .catch(error => {
-        console.error('Error al cerrar sesión:', error);
-      });
-    } else {
-      fetch(link.href)
-      .then(response => response.text())
-      .then(html => {
-        main.innerHTML = html;
-
-        const scripts = main.querySelectorAll('script');
-        scripts.forEach(script => {
-          const newScript = document.createElement('script');
-          newScript.text = script.text;
-          document.body.appendChild(newScript);
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      if (link.id === 'logout') {
+        fetch('/logout', {
+          method: 'GET',
+          credentials: 'same-origin'
+        })
+        .then(response => {
+          if (response.redirected) {
+            window.location.href = response.url;
+          }
+        })
+        .catch(error => {
+          console.error('Error al cerrar sesión:', error);
         });
-      })
-      .catch(error => {
-        console.error('Error al cargar la página:', error);
-      });
-    }
+      } else {
+        fetch(link.href)
+        .then(response => response.text())
+        .then(html => {
+          main.innerHTML = html;
+
+          const scripts = main.querySelectorAll('script');
+          scripts.forEach(script => {
+            const newScript = document.createElement('script');
+            newScript.text = script.text;
+            document.body.appendChild(newScript);
+          });
+        })
+        .catch(error => {
+          console.error('Error al cargar la página:', error);
+        });
+      }
+    });
   });
-});
 </script>
 
 </html>
