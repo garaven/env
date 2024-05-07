@@ -133,21 +133,10 @@ function loadData() {
             let id_row = button_row.querySelector('.col-id');
             const id_device = id_row.textContent;
             console.log(id_device);
-            ////
-            fetch(`/edit-form?deviceId=${id_device}`)
-              .then(response => {
-                if (!response.ok) {
-                  throw new Error('Failed to fetch edit form');
-                }
-                return response.text();
-              })
-              .then(html => {
-                document.body.innerHTML = html;
-              })
-              .catch(error => {
-                console.error('Error fetching edit form:', error);
-              });
-          };
+            const url = `/edit-form?deviceId=${id_device}&name=${device.name}&brand=${device.brand}&consumption=${device.consumption}&usage_time=${device.usage_time}`;
+            window.location.href = url;
+        };
+        
 
           let deleteButton = document.createElement("button");
           deleteButton.textContent = "Delete";

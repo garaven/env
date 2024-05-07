@@ -8,11 +8,11 @@
 </head>
 <body>
   <div class="container">
-    <form id="editForm" class="form">
+    <form action="/device/:id/edit" method="POST" id="editForm" class="form">
       <h2 class="title">Edit Device</h2>
       <div>
         <label for="id">ID</label>
-        <input type="text" id="id" name="id" disabled>
+        <input type="text" id="id" name="id" readonly>
       </div>
       <div>
         <label for="device-name">Device Name</label>
@@ -35,80 +35,57 @@
   </div>
 
   <script>
-    // Función para enviar el formulario de edición
-document.getElementById('editForm').addEventListener('submit', function(event) {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-  const jsonData = {};
-  formData.forEach((value, key) => {
-    jsonData[key] = value;
-  });
-  fetch(`/device/${deviceId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(jsonData)
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Error editing device');
-    }
-    window.location.href = '/list'; // Redirigir a la lista de dispositivos después de editar
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-});
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const deviceId = urlParams.get('deviceId');
-  
-    // Función para cargar la información del dispositivo en el formulario
-    function loadDeviceInfo(deviceId) {
-      // Realizar una solicitud para obtener la información del dispositivo utilizando el ID
-      fetch(`/device/${deviceId}`)
-        .then(response => response.json())
-        .then(device => {
-          // Llenar el formulario con la información del dispositivo
-          document.getElementById('id').value = device.id;
-          document.getElementById('name').value = device.name;
-          document.getElementById('brand').value = device.brand;
-          document.getElementById('consumption').value = device.consumption;
-          document.getElementById('usage_time').value = device.usage_time;
-          
-          // Deshabilitar la edición del ID
-          document.getElementById('id').disabled = true;
-        })
-        .catch(error => {
-          console.error('Error fetching device information:', error);
-        });
-    }
-  
-    // Llamar a la función para cargar la información del dispositivo al cargar la página
-    window.onload = function() {
-      loadDeviceInfo(deviceId);
-    };
-  
-    // Función para enviar el formulario de edición
     document.getElementById('editForm').addEventListener('submit', function(event) {
       event.preventDefault();
-      const formData = new FormData(event.target);
-      fetch(`/device/${deviceId}`, {
+  
+      const deviceId = document.getElementById('id').value;
+      const name = document.getElementById('name').value;
+      const brand = document.getElementById('brand').value;
+      const consumption = document.getElementById('consumption').value;
+      const usage_time = document.getElementById('usage_time').value;
+  
+      const formData = {
+        id: deviceId,
+        name: name,
+        brand: brand,
+        consumption: consumption,
+        usage_time: usage_time
+      };
+  
+      fetch(`/device/${deviceId}/edit`, {
         method: 'PUT',
-        body: formData
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
       })
       .then(response => {
         if (!response.ok) {
           throw new Error('Error editing device');
         }
-        window.location.href = '/list'; // Redirigir a la lista de dispositivos después de editar
+        window.location.href = '/main';
       })
       .catch(error => {
         console.error('Error:', error);
       });
     });
+
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const deviceId = urlParams.get('deviceId');
+      const name = urlParams.get('name');
+      const brand = urlParams.get('brand');
+      const consumption = urlParams.get('consumption');
+      const usage_time = urlParams.get('usage_time');
+  
+      document.getElementById('id').value = deviceId;
+      document.getElementById('name').value = name;
+      document.getElementById('brand').value = brand;
+      document.getElementById('consumption').value = consumption;
+      document.getElementById('usage_time').value = usage_time;
+    };
   </script>
+  
 </body>
 
 <style>

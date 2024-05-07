@@ -19,6 +19,14 @@ app.get("/index", (req, res) => {
   res.sendFile(path.join(__dirname + "/view/src/index.html"))
 })
 
+app.get("/forgot", (req, res) => {
+  res.sendFile(path.join(__dirname + "/view/src/forgot_password.html"))
+})
+
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname + "/view/src/about.html"))
+})
+
 app.get("/main", (req, res) => {
   res.sendFile(path.join(__dirname + "/view/src/main.html"))
 })
@@ -69,3 +77,6 @@ app.use(addDeviceRouter);
 
 const deleteDeviceRouter = require('./routes/deleteDeviceRoutes')
 app.use(deleteDeviceRouter);
+
+const editDeviceRouter = require('./routes/editDeviceRoutes')
+app.use(editDeviceRouter);
