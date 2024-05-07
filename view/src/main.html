@@ -192,6 +192,23 @@
       }
     });
   });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    fetch('/dashboard')
+      .then(response => response.text())
+      .then(html => {
+        main.innerHTML = html;
+        const scripts = main.querySelectorAll('script');
+        scripts.forEach(script => {
+          const newScript = document.createElement('script');
+          newScript.text = script.text;
+          document.body.appendChild(newScript);
+        });
+      })
+      .catch(error => {
+        console.error('Error al cargar el dashboard:', error);
+      });
+  });
 </script>
 
 </html>
