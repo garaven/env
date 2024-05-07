@@ -43,6 +43,10 @@ app.get("/list", (req, res) => {
   res.sendFile(path.join(__dirname + "/view/src/devices_list.html"))
 })
 
+app.get("/analytics", (req, res) => {
+  res.sendFile(path.join(__dirname + "/view/src/analytics.html"))
+})
+
 app.get("/settings", (req, res) => {
   res.sendFile(path.join(__dirname + "/view/src/settings.html"))
 })

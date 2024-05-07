@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>
+</head>
+<body>
+  <div id="main" style="width: 800px; height: 600px;"></div>
+
+  <script>
+    // Datos del gráfico
+    const data = {
+      categories: ['A', 'B', 'C', 'D', 'E'],
+      values: [10, 20, 30, 40, 50]
+    };
+
+    // Configuración del gráfico
+    const options = {
+      xAxis: { type: 'category', data: data.categories },
+      yAxis: { type: 'value' },
+      series: [{ data: data.values, type: 'bar' }]
+    };
+
+    // Crear instancia de ECharts y asignar opciones
+    const chart = echarts.init(document.getElementById('main'));
+    chart.setOption(options);
+  </script>
+</body>
+</html>
