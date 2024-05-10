@@ -3,7 +3,7 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 
-app.listen(3000, ()=>{
+app.listen(3000, () => {
   console.log("Server running")
 })
 
@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('view'));
 
-app.get("/", (req, res) =>{
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/view/src/index.html"));
 })
 
@@ -84,3 +84,6 @@ app.use(deleteDeviceRouter);
 
 const editDeviceRouter = require('./routes/editDeviceRoutes')
 app.use(editDeviceRouter);
+
+const dashboardRouter = require("./routes/dashboardRoutes")
+app.use(dashboardRouter);

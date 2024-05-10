@@ -99,7 +99,6 @@
   </div>
 
   <script>
- // Función para cargar los datos
 function loadData() {
   fetch('/device')
     .then(response => {
@@ -109,12 +108,10 @@ function loadData() {
       return response.json();
     })
     .then(devices => {
-      // Limpiar el tbody
       document.getElementById("tbody").innerHTML = '';
 
-      // Insertar cada dispositivo en la tabla
       devices.forEach(device => {
-        if (device.active === 1) { // Solo mostrar dispositivos activos
+        if (device.active === 1) {
           let tableBody = document.getElementById("tbody");
           let row = tableBody.insertRow();
           let cellId = row.insertCell(0);
@@ -141,23 +138,20 @@ function loadData() {
           let deleteButton = document.createElement("button");
           deleteButton.textContent = "Delete";
           deleteButton.onclick = function() {
-            // Obtener el ID del dispositivo desde la fila de la tabla
-            const deviceId = cellId.textContent;
-
-            // Enviar una solicitud PUT al servidor para actualizar el estado del dispositivo
+            const row = this.closest('tr');
+            const deviceId = row.querySelector('.col-id').textContent; 
             fetch(`/device/${deviceId}/status`, {
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json'
               },
-              body: JSON.stringify({ active: 0 }) // Cambiar el estado a 0 para desactivar
+              body: JSON.stringify({ active: 0 })
             })
             .then(response => {
               if (!response.ok) {
                 throw new Error('Failed to deactivate device');
               }
-              // Eliminar la fila de la tabla
-              row.remove();
+              row.remove(); 
               console.log('Dispositivo desactivado exitosamente');
             })
             .catch(error => {
@@ -165,7 +159,6 @@ function loadData() {
             });
           };
 
-          // Agregar botones a la celda de acciones
           let actionsCell = row.insertCell(6);
           actionsCell.appendChild(editButton);
           actionsCell.appendChild(deleteButton);

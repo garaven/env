@@ -56,9 +56,10 @@
 
   <div class="container">
     <section>
-      <article>
-        <p>Total Usage</p>
-        <p>0 kWh</p>
+      <article id="totalUsage">
+        <p>Total Usage: 
+          <span id="totalUsageValue"></span>
+        </p>
       </article>
       <article>
         <p>Usage limitation</p>
@@ -70,5 +71,13 @@
     </article>
   </div>
 
+  <script>
+    fetch('/dashboard/usage_time')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('totalUsageValue').innerText = data.totalUsage + "kWh";
+    })
+    .catch(error => console.error('Error:', error));
+  </script>
 </body>
 </html>
