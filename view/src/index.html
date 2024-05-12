@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
-  <link rel="stylesheet" href="../css/font.css">
+  <!-- <link rel="stylesheet" href="../css/font.css"> -->
+  <link rel="stylesheet" href="../css/index.css">
   <style>
     * {
       margin: 0;
@@ -16,6 +17,8 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      /* background-color: #0d0c1c;
+      color: #fff; */
     }
 
     form {
@@ -25,7 +28,7 @@
       padding: 30px;
       font-size: 14px;
       border-radius: 15px;
-      box-shadow: 0 0 10px #cfcfcf;
+      /* box-shadow: 0 0 10px #cfcfcf; */
     }
 
     form h2 {
@@ -62,6 +65,8 @@
       /* border: 2px solid #000; */
       border-radius: 12px;
       font-weight: bold;
+      background-color: #fad8f2;
+      color: #fa3ac5;
       cursor: pointer;
       /* &:hover {
 
@@ -116,7 +121,7 @@
       align-items: center;
       flex: 1;
       width: 100%;
-      margin-bottom: 80px;
+      margin-bottom: 50px;
     }
 
     main article {
@@ -190,7 +195,7 @@
   
       <div class="container_input">
         <label for="email_input">Email</label>
-        <input id="email_input" name="email" type="email" placeholder="Enter your email" required>
+        <input id="email_input" name="email" type="email" placeholder="Enter your email" autocomplete="off" required>
       </div>
   
       <div class="container_input">
@@ -205,7 +210,7 @@
         <a href="/forgot">Forgot password?</a>
       </div>
   
-      <button type="submit">Log in</button>
+      <button type="submit">Log In</button>
     </form>
   </main>
 

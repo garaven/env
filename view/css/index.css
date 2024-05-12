@@ -1,0 +1,80 @@
+@import url('general_styles.css');
+
+body {
+  /* background-color: var(--dark-mode); */
+  color: var(--text-dark-mode);
+  background-image: linear-gradient(to bottom, var(--dark-mode-shadow), var(--dark-mode));
+  overflow: hidden;
+}
+
+nav svg {
+  /* border-bottom: 1px solid var(--dark-mode-shadow); */
+  stroke: var(--yellow);
+  /* color: var(--yellow); */
+}
+
+nav span {
+  color: var(--yellow);
+}
+
+nav a {
+  color: var(--yellow);
+}
+
+nav ul li:last-child a {
+  /* border: 1px solid var(--yellow); */
+  padding: 8px 30px;
+  background-image: radial-gradient(circle, var(--light-yellow), var(--yellow));
+  color: var(--dark-mode);
+  font-weight: 700;
+  border: none;
+  transition: box-shadow .1s ease-in 0s;
+  &:hover {
+    box-shadow: 0 0 8px var(--light-yellow);
+  }
+}
+
+h1 {
+  background-image: linear-gradient(to right, var(--light-purple), var(--yellow));
+  background-clip: text;
+  color: transparent;
+}
+
+aside span {
+  color: var(--yellow);
+}
+
+form {
+  background-color: var(--dark-mode);
+  color: var(--yellow);
+  border: 1px solid var(--yellow);
+  /* box-shadow: var(--shadow-out) var(--dark-mode-shadow); */
+}
+
+label[for='email_input'], label[for='password_input'] {
+  font-weight: 600;
+}
+
+.separate_div > a {
+  color: var(--light-purple);
+}
+
+.separate_div > label {
+  color: var(--text-dark-mode);
+  & input {
+    accent-color: var(--light-purple);
+  }
+}
+
+form button {
+  /* background-image: radial-gradient(circle, var(--yellow), var(--light-purple)); */
+  background-color: var(--yellow);
+  /* border: 1px solid var(--yellow); */
+  color: var(--dark-mode);
+  font-weight: 700;
+  /* transition: background-color var(--transition); */
+  transition: background .3s ease-in-out;
+  &:hover {
+    background: var(--light-yellow);
+  }
+}
