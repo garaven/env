@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/font.css">
+  <link rel="stylesheet" href="../css/register.css">
+  <link rel="stylesheet" href="../css/general_styles.css">
   <style>
     * {
       margin: 0;
@@ -29,7 +29,7 @@
       padding: 30px;
       border-radius: 15px;
       /* text-align: center; */
-      box-shadow: 0 0 10px #cfcfcf;
+      /* box-shadow: 0 0 10px #cfcfcf; */
     }
 
     form h1 {
@@ -70,8 +70,8 @@
       width: 100%;
       height: 25px;
       padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #000;
+      /* border-radius: 5px; */
+      /* border: 1px solid #000; */
     }
 
     .separate_div {
@@ -98,10 +98,6 @@
       top: 15px;
       left: 15px;
       border-radius: 50%;
-      transition: all .3s ease;
-      &:hover {
-        animation: moveX 1s ease infinite;
-      }
     }
 
     a svg {
@@ -143,12 +139,12 @@
 
     <div class="container_input">
       <label for="name_input">Name</label>
-      <input placeholder="Type a name" id="name_input" name="name" type="text" minlength="3" maxlength="30" required>
+      <input placeholder="Type a name" id="name_input" name="name" type="text" minlength="3" maxlength="30" required autocomplete="off">
     </div>
 
     <div class="container_input">
       <label for="email_input">Email</label>
-      <input placeholder="Type an email" id="email_input" name="email" type="email" required>
+      <input placeholder="Type an email" id="email_input" name="email" type="email" required autocomplete="off">
     </div>
 
     <div class="container_input">
@@ -171,7 +167,7 @@
 
     <div class="container_radio">
       <div>
-        <input id="personal" name="acc_type" value="personal" type="radio" required>
+        <input id="personal" name="acc_type" value="personal" type="radio" required checked>
         <label for="personal">Personal</label>
       </div>
       <div>

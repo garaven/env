@@ -20,6 +20,12 @@
   --dark-purple: #19072e;
   --purple: #4724f5;
   --light-purple: #8871fa;
+  --dark-red: rgb(59, 4, 4);
+  --red: rgb(202, 42, 42);
+  --light-red: rgb(253, 224, 224);
+  --dark-gray: #383838;
+  --gray: #979797;
+  --light-gray: #cdcdcd;
   --dark-pink: #33052c;
   --pink: #fa3ac5;
   --light-pink: #fad8f2;
@@ -29,6 +35,9 @@
 
 body {
   font-family: var(--font);
+  background-image: linear-gradient(to bottom, var(--dark-mode-shadow), var(--dark-mode));
+  /* background-color: var(--dark-mode); */
+  color: var(--text-dark-mode);
 }
 
 .container {
@@ -37,4 +46,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+input, select {
+  color: var(--text-dark-mode);
 }

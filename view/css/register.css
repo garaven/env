@@ -1,0 +1,45 @@
+@import url('general_styles.css');
+
+form {
+  background-color: var(--dark-mode);
+  border: 1px solid var(--yellow);
+}
+
+form h1 {
+  color: transparent;
+  background-image: linear-gradient(to bottom, var(--light-yellow), var(--yellow));
+  background-clip: text;
+}
+
+form .container_input > label, form > label {
+  color: var(--yellow);
+}
+
+.container_radio div input {
+  accent-color: var(--purple);
+}
+
+form a {
+  color: var(--yellow);
+  transition: all .3s ease;
+  &:hover {
+    color: var(--light-yellow);
+    animation: moveX 1s ease infinite;
+  }
+}
+
+form option {
+  color: var(--dark-mode);
+}
+
+form button {
+  background-color: var(--yellow);
+  font-weight: bold;
+}
+
+form input, form select {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--light-yellow);
+}
