@@ -1,6 +1,18 @@
 @import url('general_styles.css');
 
+body {
+  display: flex;
+}
+
 aside {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 250px;
+  padding: 20px;
+  transition: all 0.5s ease;
+  /* border-right: 1px solid #000; */
+  overflow: hidden;
   background-color: var(--dark-mode);
   border-right: 1px solid var(--light-purple);
   margin-right: 1px;
@@ -12,6 +24,8 @@ aside nav {
 
 aside hr {
   border-color: var(--light-purple);
+  margin: 15px 0;
+
 }
 
 .top span, nav div:first-child ul li svg {
@@ -51,4 +65,56 @@ nav div:last-child ul li:first-child a {
   &:hover {
     background-color: var(--dark-gray);
   }
+}
+
+
+.top {
+  /* color: #fff; */
+  text-align: center;
+  pointer-events: none;
+  font-size: x-large;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+
+#sidebar ul li a {
+  /* color: #fff; */
+  text-decoration: none;
+  display: block;
+  border-radius: 3px;
+  padding: 5px 10px;
+  width: 100%;
+}
+
+aside li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  list-style: none;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 100vh;
+}
+
+nav div:last-child {
+  display: flex;
+  flex-direction: column;
+
 }

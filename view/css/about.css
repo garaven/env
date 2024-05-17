@@ -5,6 +5,13 @@ h1, strong {
 }
 
 .icons div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 180px;
+  padding: 12px;
+  border-radius: 10px;
   color: var(--yellow);
   border: 1px solid var(--yellow);
   box-shadow: inset 0 0 5px var(--yellow);
@@ -23,6 +30,30 @@ h1, strong {
     color: var(--light-yellow);
     animation: moveX 1s ease infinite;
   }
+}
+
+.container article {
+  width: 75%;
+  margin-bottom: 30px;
+}
+
+.container article h1 {
+  margin-bottom: 10px;
+}
+
+.container article p {
+  margin-bottom: 50px;
+}
+
+.container .icons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.container .icons span {
+  display: block;
+  text-align: center;
+  font-weight: 700;
 }
 
 @keyframes moveX {
