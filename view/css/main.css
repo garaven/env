@@ -26,7 +26,11 @@ aside hr {
   margin: 15px 0;
 }
 
-.top span, nav div:first-child ul li svg {
+nav div:first-child ul li svg {
+  color: var(--gray);
+}
+
+.top span {
   color: var(--yellow);
 }
 
