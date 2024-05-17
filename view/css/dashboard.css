@@ -16,8 +16,8 @@ section {
 
 article {
   padding: 20px;
-  border: 1px solid #000;
-  border-radius: 10px;
+  background-color: #ececec0c;
+  border-radius: 20px;
 }
 
 section article {

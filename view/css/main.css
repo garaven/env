@@ -11,10 +11,9 @@ aside {
   width: 250px;
   padding: 20px;
   transition: all 0.5s ease;
-  /* border-right: 1px solid #000; */
+  border-right: 1px solid #d9d9d91e;
   overflow: hidden;
   background-color: var(--dark-mode);
-  border-right: 1px solid var(--light-purple);
   margin-right: 1px;
 }
 
@@ -23,9 +22,8 @@ aside nav {
 }
 
 aside hr {
-  border-color: var(--light-purple);
+  border-color: #d9d9d91e;
   margin: 15px 0;
-
 }
 
 .top span, nav div:first-child ul li svg {
@@ -42,7 +40,6 @@ nav div:last-child ul li:first-child svg {
 
 nav div:first-child ul li a {
   color: var(--light-yellow);
-  border: 1px solid var(--yellow);
   transition: background-color .2s ease;
   &:hover {
     background-color: var(--dark-yellow);
@@ -51,7 +48,6 @@ nav div:first-child ul li a {
 
 nav div:last-child ul li:last-child a {
   color: var(--light-red);
-  border: 1px solid var(--red);
   transition: background-color .2s ease;
   &:hover {
     background-color: var(--dark-red);
@@ -60,7 +56,6 @@ nav div:last-child ul li:last-child a {
 
 nav div:last-child ul li:first-child a {
   color: var(--light-gray);
-  border: 1px solid var(--gray);
   transition: background-color .2s ease;
   &:hover {
     background-color: var(--dark-gray);
@@ -69,7 +64,6 @@ nav div:last-child ul li:first-child a {
 
 
 .top {
-  /* color: #fff; */
   text-align: center;
   pointer-events: none;
   font-size: x-large;
@@ -78,7 +72,8 @@ nav div:last-child ul li:first-child a {
 .options {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  justify-content: center;
+  gap: 16px;
 }
 
 nav {
@@ -90,12 +85,12 @@ nav {
 
 
 #sidebar ul li a {
-  /* color: #fff; */
   text-decoration: none;
-  display: block;
-  border-radius: 3px;
+  display: flex;
+  border-radius: 9px;
   padding: 5px 10px;
   width: 100%;
+  gap: 12px;
 }
 
 aside li {
@@ -116,5 +111,4 @@ main {
 nav div:last-child {
   display: flex;
   flex-direction: column;
-
 }
