@@ -6,6 +6,7 @@
   <title>Home</title>
   <link rel="stylesheet" href="../css/general_styles.css">
   <link rel="stylesheet" href="../css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>  
 </head>
 <body>
 
@@ -67,64 +68,77 @@
   </aside>
 
   <main id="main">
+    
   </main>
   
 </body>
 
 <script>
-  const main = document.getElementById('main');
-  const links = document.querySelectorAll('#sidebar a');
-
-  links.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      if (link.id === 'logout') {
-        fetch('/logout', {
-          method: 'GET',
-          credentials: 'same-origin'
-        })
-        .then(response => {
-          if (response.redirected) {
-            window.location.href = response.url;
-          }
-        })
-        .catch(error => {
-          console.error('Error al cerrar sesión:', error);
-        });
-      } else {
-        fetch(link.href)
-        .then(response => response.text())
-        .then(html => {
-          main.innerHTML = html;
-
-          const scripts = main.querySelectorAll('script');
-          scripts.forEach(script => {
-            eval(script.text);
-          });
-2        })
-        .catch(error => {
-          console.error('Error al cargar la página:', error);
-        });
-      }
-    });
-  });
-
-  document.addEventListener('DOMContentLoaded', function() {
-    fetch('/dashboard')
+  function loadContent(url) {
+    fetch(url)
       .then(response => response.text())
       .then(html => {
+        const main = document.getElementById('main');
         main.innerHTML = html;
+
+        // Load and execute styles in the loaded content
+        const styles = main.querySelectorAll('style');
+        styles.forEach(style => {
+          const newStyle = document.createElement('style');
+          newStyle.textContent = style.textContent;
+          document.head.appendChild(newStyle);
+        });
+
+        // Load and execute scripts in the loaded content
         const scripts = main.querySelectorAll('script');
         scripts.forEach(script => {
           const newScript = document.createElement('script');
-          newScript.text = script.text;
-          document.body.appendChild(newScript);
+          if (script.src) {
+            newScript.src = script.src;
+            document.body.appendChild(newScript);
+          } else {
+            newScript.textContent = script.textContent;
+            document.body.appendChild(newScript);
+          }
         });
       })
       .catch(error => {
-        console.error('Error al cargar el dashboard:', error);
+        console.error('Error al cargar la página:', error);
       });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Load the initial dashboard content
+    loadContent('/dashboard');
+
+    // Set up event listeners for navigation links
+    const links = document.querySelectorAll('#sidebar a');
+
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (link.id === 'logout') {
+          // Handle logout separately
+          fetch('/logout', {
+            method: 'GET',
+            credentials: 'same-origin'
+          })
+          .then(response => {
+            if (response.redirected) {
+              window.location.href = response.url;
+            }
+          })
+          .catch(error => {
+            console.error('Error al cerrar sesión:', error);
+          });
+        } else {
+          // Load the content for the clicked link
+          loadContent(link.href);
+        }
+      });
+    });
   });
 </script>
+
 
 </html>
