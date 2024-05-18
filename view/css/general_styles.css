@@ -29,6 +29,7 @@
   --dark-pink: #33052c;
   --pink: #fa3ac5;
   --light-pink: #fad8f2;
+  --container: #ececec0c;
   --shadow-out: 0 0 10px 5px;
   --transition: /* property */ .3s ease 0s;
 }
