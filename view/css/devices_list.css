@@ -2,15 +2,14 @@
   width: 100%;
   overflow: hidden;
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
   overflow: auto;
-  padding: 0 50px;
+  padding: 0 30px;
+  flex-direction: column;
 }
 
 h2 {
   margin: 20px 0;
-  text-align: center;
+  text-align: left;
 }
 
 h2 + div {
@@ -29,15 +28,15 @@ th, td {
   padding: 5px;
   font-size: 0.75rem;
   text-align: center;
-  color: #000;
+  color: var(--light-yellow);
 }
 
 tr {
-  background-color: #cfcfcf;
+  background-color: var(--container);
 } 
 
 tr:nth-child(odd) {
-  background-color: #fff;
+  background-color: var(--container);
 }
 
 th {
@@ -50,15 +49,27 @@ th {
 
 table thead .first-row {
   position: sticky;
-  background-color: #5394fd;
+  background-color: var(--purple);
   top: 0;
   left: 0;
 }
 
 td button {
   margin-left: 5px;
+  background-color: var(--light-purple);
 }
 
 .col-id {
-  background-color: #cfcfcf;
+  background-color: var(--container);
+}
+
+input {
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: var(--container);
+  padding: 0.3rem;
+  width: 100%;
+  border-width: 1px;
+  border-color: var(--container);
+  border-radius: 0.375rem;
 }

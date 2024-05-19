@@ -11,10 +11,11 @@
 .container ul li {
   list-style: none;
   padding: 10px 20px;
-  border: 1px solid #000;
+  border: 1px solid var(--container);
   border-radius: 5px;
   width: 300px;
   margin-bottom: 10px;
+  background-color: var(--container);
 }
 
 ul li:last-child {
@@ -35,8 +36,9 @@ label[for='watts'], label[for='english'] {
 
 .container > div {
   border-radius: 10px;
-  border: 1px solid #000;
+  border: 1px solid var(--container);
   padding: 25px;
+  background-color: var(--container);
 }
 
 div h1 {

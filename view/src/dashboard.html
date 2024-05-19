@@ -23,7 +23,7 @@
     </section>
     
     <article>
-      <p>Graphic</p>
+      <div id="graph-bar" style="width: 1100px; height: 500px;"></div>
     </article>
   </div>
 
@@ -39,9 +39,9 @@
     function updateProgressBar(value) {
       var maxUsage = 1000; // Define the maximum value
       var percentage = (value / maxUsage) * 100;
-
+    
       var myChart = echarts.init(document.getElementById('limitation-container'));
-
+    
       var option = {
         xAxis: {
           type: 'value',
@@ -83,10 +83,39 @@
           containLabel: true
         }
       };
+    
+      myChart.setOption(option);
+    }    
+    
+    function bar() {
+      var myChart = echarts.init(document.getElementById('graph-bar'));
+
+      var option = {
+        title: {
+          text: 'ECharts Getting Started Example'
+        },
+        tooltip: {},
+        xAxis: {
+          data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks']
+        },
+        yAxis: {},
+        series: [
+          {
+            name: 'sales',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20],
+            itemStyle: {
+              color: '#8871fa',
+              borderRadius: [10, 10, 10, 10]
+            }
+          }
+        ]
+      };
 
       myChart.setOption(option);
     }
-    
+
+    bar();
   </script>
 </body>
 </html>
