@@ -19,9 +19,10 @@
   --light-yellow: #faf3db;
   --dark-purple: #19072e;
   --purple: #4724f5;
-  --light-purple: #8871fa;
+  --light-purple: rgb(85, 51, 255);
   --dark-red: rgb(59, 4, 4);
   --red: rgb(202, 42, 42);
+  --dark-red: rgb(160, 32, 32);
   --light-red: rgb(253, 224, 224);
   --dark-gray: #383838;
   --gray: #979797;

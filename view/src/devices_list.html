@@ -6,6 +6,7 @@
   <title>Devices</title>
   <link rel="stylesheet" href="../css/general_styles.css">
   <link rel="stylesheet" href="../css/devices_list.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
@@ -34,76 +35,79 @@
   </div>
 
   <script>
-function loadData() {
-  fetch('/device')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to fetch device data');
-      }
-      return response.json();
-    })
-    .then(devices => {
-      document.getElementById("tbody").innerHTML = '';
+    function loadData() {
+      fetch('/device')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch device data');
+          }
+          return response.json();
+        })
+        .then(devices => {
+          document.getElementById("tbody").innerHTML = '';
 
-      devices.forEach(device => {
-        if (device.active === 1) {
-          let tableBody = document.getElementById("tbody");
-          let row = tableBody.insertRow();
-          let cellId = row.insertCell(0);
-          cellId.textContent = device.id;
-          cellId.classList.add("col-id");
-          row.insertCell(1).textContent = device.name;
-          row.insertCell(2).textContent = device.brand;
-          row.insertCell(3).textContent = device.consumption + 'Kwh';
-          row.insertCell(4).textContent = device.usage_time + 'h';
-          row.insertCell(5).textContent = device.date.substring(0, 10);
+          devices.forEach(device => {
+            if (device.active === 1) {
+              let tableBody = document.getElementById("tbody");
+              let row = tableBody.insertRow();
+              let cellId = row.insertCell(0);
+              cellId.textContent = device.id;
+              cellId.classList.add("col-id");
+              row.insertCell(1).textContent = device.name;
+              row.insertCell(2).textContent = device.brand;
+              row.insertCell(3).textContent = device.consumption + 'Kwh';
+              row.insertCell(4).textContent = device.usage_time + 'h';
+              row.insertCell(5).textContent = device.date.substring(0, 10);
 
-          let editButton = document.createElement("button");
-          editButton.textContent = "Edit";
-          editButton.onclick = function() {
-            let button_row = editButton.closest('tr');
-            let id_row = button_row.querySelector('.col-id');
-            const id_device = id_row.textContent;
-            console.log(id_device);
-            const url = `/edit-form?deviceId=${id_device}&name=${device.name}&brand=${device.brand}&consumption=${device.consumption}&usage_time=${device.usage_time}`;
-            window.location.href = url;
-        };
-        
+              let editButton = document.createElement("button");
+              editButton.id = `edit-${device.id}`;
+              editButton.classList.add("edit-btn");
+              editButton.innerHTML = '<i class="fas fa-edit"></i>';
+              editButton.onclick = function() {
+                let button_row = editButton.closest('tr');
+                let id_row = button_row.querySelector('.col-id');
+                const id_device = id_row.textContent;
+                console.log(id_device);
+                const url = `/edit-form?deviceId=${id_device}&name=${device.name}&brand=${device.brand}&consumption=${device.consumption}&usage_time=${device.usage_time}`;
+                window.location.href = url;
+              };
 
-          let deleteButton = document.createElement("button");
-          deleteButton.textContent = "Delete";
-          deleteButton.onclick = function() {
-            const row = this.closest('tr');
-            const deviceId = row.querySelector('.col-id').textContent; 
-            fetch(`/device/${deviceId}/status`, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ active: 0 })
-            })
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Failed to deactivate device');
-              }
-              row.remove(); 
-              console.log('Dispositivo desactivado exitosamente');
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
-          };
+              let deleteButton = document.createElement("button");
+              deleteButton.id = `delete-${device.id}`;
+              deleteButton.classList.add("delete-btn");
+              deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+              deleteButton.onclick = function() {
+                const row = this.closest('tr');
+                const deviceId = row.querySelector('.col-id').textContent;
+                fetch(`/device/${deviceId}/status`, {
+                  method: 'PUT',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ active: 0 })
+                })
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Failed to deactivate device');
+                  }
+                  row.remove();
+                  console.log('Dispositivo desactivado exitosamente');
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                });
+              };
 
-          let actionsCell = row.insertCell(6);
-          actionsCell.appendChild(editButton);
-          actionsCell.appendChild(deleteButton);
-        }
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching data:', error);
-    });
-}
+              let actionsCell = row.insertCell(6);
+              actionsCell.appendChild(editButton);
+              actionsCell.appendChild(deleteButton);
+            }
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    }
 
 function searchById() {
   const searchId = document.getElementById("search_id").value;

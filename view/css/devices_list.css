@@ -56,7 +56,35 @@ table thead .first-row {
 
 td button {
   margin-left: 5px;
+  color: var(--light-yellow);
+  box-shadow: none;
+  border: none;
+  border-radius: 3px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
+  transition: var(--transition);
+}
+
+.edit-btn {
+  color: var(--light-yellow);
+  cursor: pointer;
   background-color: var(--light-purple);
+}
+
+.delete-btn {
+  color: var(--light-yellow);
+  cursor: pointer;
+  background-color: var(--red);
+}
+
+.delete-btn:hover {
+  background-color: var(--dark-red);
+}
+
+.edit-btn:hover {
+  background-color: var(--purple);
 }
 
 .col-id {
