@@ -35,94 +35,67 @@
 
   <script>
     function loadData() {
-      fetch('/device')
+      fetch('/user')
         .then(response => {
           if (!response.ok) {
-            throw new Error('Failed to fetch device data');
+            throw new Error('Failed to fetch user data');
           }
           return response.json();
         })
-        .then(devices => {
+        .then(users => {
           document.getElementById("tbody").innerHTML = '';
 
-          devices.forEach(device => {
-            if (device.active === 1) {
-              let tableBody = document.getElementById("tbody");
-              let row = tableBody.insertRow();
-              let cellId = row.insertCell(0);
-              cellId.textContent = device.id;
-              cellId.classList.add("col-id");
-              row.insertCell(1).textContent = device.name;
-              row.insertCell(2).textContent = device.brand;
-              row.insertCell(3).textContent = device.consumption + 'Kwh';
-              row.insertCell(4).textContent = device.usage_time + 'h';
-              row.insertCell(5).textContent = device.date.substring(0, 10);
+          users.forEach(user => {
+            let tableBody = document.getElementById("tbody");
+            let row = tableBody.insertRow();
+            row.insertCell(0).textContent = user.email;
+            row.insertCell(1).textContent = user.name;
+            row.insertCell(2).textContent = user.country;
+            row.insertCell(3).textContent = user.acc_type;
+            row.insertCell(4).textContent = user.active == 1 ? 'Active' : 'Inactive';
 
-              let editButton = document.createElement("button");
-              editButton.id = `edit-${device.id}`;
-              editButton.classList.add("edit-btn");
-              editButton.innerHTML = '<i class="fas fa-edit"></i>';
-              editButton.onclick = function() {
-                let button_row = editButton.closest('tr');
-                let id_row = button_row.querySelector('.col-id');
-                const id_device = id_row.textContent;
-                console.log(id_device);
-                const url = `/edit-form?deviceId=${id_device}&name=${device.name}&brand=${device.brand}&consumption=${device.consumption}&usage_time=${device.usage_time}`;
-                window.location.href = url;
-              };
+            let editButton = document.createElement("button");
+            editButton.classList.add("edit-btn");
+            editButton.innerHTML = '<i class="fas fa-edit"></i>';
+            editButton.onclick = function() {
+              let button_row = editButton.closest('tr');
+              const url = `/edit-form?email=${user.email}&name=${user.name}&country=${user.country}&acc_type=${user.acc_type}&active=${user.active}`;
+              window.location.href = url;
+            };
 
-              let deleteButton = document.createElement("button");
-              deleteButton.id = `delete-${device.id}`;
-              deleteButton.classList.add("delete-btn");
-              deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
-              deleteButton.onclick = function() {
-                const row = this.closest('tr');
-                const deviceId = row.querySelector('.col-id').textContent;
-                fetch(`/device/${deviceId}/status`, {
-                  method: 'PUT',
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({ active: 0 })
-                })
-                .then(response => {
-                  if (!response.ok) {
-                    throw new Error('Failed to deactivate device');
-                  }
-                  row.remove();
-                  console.log('Dispositivo desactivado exitosamente');
-                })
-                .catch(error => {
-                  console.error('Error:', error);
-                });
-              };
+            let deleteButton = document.createElement("button");
+            deleteButton.classList.add("delete-btn");
+            deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+            deleteButton.onclick = function() {
+              const row = this.closest('tr');
+              fetch(`/user/${user.email}/status`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ active: 0 })
+              })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Failed to deactivate user');
+                }
+                row.remove();
+                console.log('Desactivate user successfully');
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+            };
 
-              let actionsCell = row.insertCell(6);
-              actionsCell.appendChild(editButton);
-              actionsCell.appendChild(deleteButton);
-            }
+            let actionsCell = row.insertCell(5);
+            actionsCell.appendChild(editButton);
+            actionsCell.appendChild(deleteButton);
           });
         })
         .catch(error => {
-          console.error('Error fetching data:', error);
+          console.error('Error fetching user data:', error);
         });
     }
-
-function searchById() {
-  const searchId = document.getElementById("search_id").value;
-  const rows = document.getElementById("tbody").getElementsByTagName("tr");
-  for (let i = 0; i < rows.length; i++) {
-    let idCell = rows[i].getElementsByTagName("td")[0];
-    if (idCell) {
-      let id = idCell.textContent;
-      if (id.indexOf(searchId) > -1) {
-        rows[i].style.display = "";
-      } else {
-        rows[i].style.display = "none";
-      }
-    }
-  }
-}
 
 loadData();
   </script>

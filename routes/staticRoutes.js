@@ -7,6 +7,10 @@ router.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/../view/src/index.html"));
 });
 
+router.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname + "/../view/src/index.html"))
+});
+
 router.get("/index", (req, res) => {
   res.sendFile(path.join(__dirname + "/../view/src/index.html"))
 });
@@ -29,6 +33,10 @@ router.get("/settings", (req, res) => {
 
 router.get("/dashboard", (req, res) => {
   res.sendFile(path.join(__dirname + "/../view/src/dashboard.html"))
+});
+
+router.get("/admin", (req, res) => {
+  res.sendFile(path.join(__dirname + "/../view/src/admin.html"))
 });
 
 module.exports = router;

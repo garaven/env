@@ -27,10 +27,20 @@ router.post("/login", (req, res) => {
       if(result === 'notfound') {
         return res.status(500).send('User not found');
       } else {
-      res.sendFile(path.join(__dirname + "/../view/src/main.html"));
+        res.redirect(`/main?acc_type=${acc_type}`);
+      // res.sendFile(path.join(__dirname + "/../view/src/main.html"));
       }
     }
   })
+});
+
+router.get("/user", (req, res) => {
+  control.userList((err, user) => {
+    if (err) {
+      return res.status(500).send('Error fetching devices');
+    }
+    res.json(user);
+  });
 });
 
 router.get("/register", (req, res) => {

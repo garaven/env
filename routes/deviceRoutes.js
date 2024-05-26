@@ -24,7 +24,7 @@ router.get("/device", (req, res) => {
   });
 });
 
-// Route to modify information of the device
+// Route to modify information of the device on the list
 router.put("/device/:id/edit", (req, res) => {
   const deviceId = req.params.id;
   const { name, brand, consumption, usage_time } = req.body;

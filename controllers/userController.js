@@ -1,5 +1,16 @@
 const { db } = require('../database/db');
 
+function userList(callback) {
+  const sql = `SELECT * FROM user`;
+  db.query(sql, (err, user) => {
+    if (err) {
+      console.error('Error on database:', err);
+      return callback(err);
+    }
+    callback(null, user);
+  });
+};
+
 function registerUser(name, email, password, acc_type, country, callback){
   db.query('SELECT * FROM user WHERE email = ?', [email], (err, result) => {
     if(result.length > 0) {
@@ -21,6 +32,7 @@ function loginUser(email, password, callback) {
   db.query('SELECT * FROM user WHERE email = ?', [email], (err, result) => {
     if(result.length > 0) {
       user = result[0];
+      acc_type = user.acc_type;
       if(user.password === password) {
         callback(null, true);
       } else {
@@ -34,5 +46,6 @@ function loginUser(email, password, callback) {
 
 module.exports = {
   registerUser,
-  loginUser
+  loginUser,
+  userList
 };
