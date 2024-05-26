@@ -91,6 +91,10 @@ td button {
   background-color: var(--container);
 }
 
+.search-byID {
+  color: var(--text);
+}
+
 input {
   font-size: 0.875rem;
   font-weight: 500;

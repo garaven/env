@@ -26,7 +26,7 @@
     font-size: 0.875rem;
     font-weight: 500;
     margin-bottom: 2px;
-    color:#ffffffa2;
+    color: var(--text);
   }
 
   .form {
