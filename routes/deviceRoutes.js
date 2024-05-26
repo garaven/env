@@ -10,7 +10,7 @@ router.post("/add", (req, res) => {
       if (err) {
         return res.status(500).send('Error registering device');
       }
-      res.sendFile(path.join(__dirname + "/view/src/main.html"))
+      res.sendFile(path.join(__dirname + "../view/src/main.html"))
     });
   });
 
