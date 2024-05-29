@@ -92,18 +92,20 @@
 
       var option = {
         title: {
-          text: 'ECharts Getting Started Example'
+          text: 'Energy consumption by device'
         },
         tooltip: {},
         xAxis: {
-          data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks']
+          data: ['Lights', 'Appliances', 'Air conditioning', 'Electronics', 'Others']
         },
-        yAxis: {},
+        yAxis: {
+          name: 'kWh'
+        },
         series: [
           {
-            name: 'sales',
+            name: 'Consumo',
             type: 'bar',
-            data: [5, 20, 36, 10, 10, 20],
+            data: [150, 230, 224, 218, 135],
             itemStyle: {
               color: '#8871fa',
               borderRadius: [10, 10, 10, 10]

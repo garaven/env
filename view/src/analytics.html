@@ -9,66 +9,47 @@
   <style>
     .contCharts {
       width: 400px;
-      min-height: 400px;
+      height: 400px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
-  <div id="containerBar" class="contCharts"></div>
-  <div id="containerLine" class="contCharts"></div>
-  <div id="containerPie" class="contCharts"></div>
+  <div id="containerTotalConsumption" class="contCharts"></div>
+  <div id="containerDeviceDistribution" class="contCharts"></div>
+  <div id="containerConsumptionTrend" class="contCharts"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.1/dist/echarts.min.js"></script>
   <script>
-    function bar() {
-      let chartBar = echarts.init(document.getElementById('containerBar'));
-      let chartLine = echarts.init(document.getElementById('containerLine'));
-      let chartPie = echarts.init(document.getElementById('containerPie'));
+    function renderCharts() {
+      const chartTotalConsumption = echarts.init(document.getElementById('containerTotalConsumption'));
+      const chartDeviceDistribution = echarts.init(document.getElementById('containerDeviceDistribution'));
+      const chartConsumptionTrend = echarts.init(document.getElementById('containerConsumptionTrend'));
 
-      let bar = {
+      const totalConsumptionOptions = {
         title: {
-          text: 'ECharts Getting Started Example'
-        },
-        tooltip: {},
-        xAxis: {
-          data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks']
-        },
-        yAxis: {},
-        series: [
-          {
-            name: 'sales',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20],
-            itemStyle: {
-              color: '#f1cb4b'
-            }
-          }
-        ]
-      };
-
-      line = {
-        xAxis: {
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [
-          {
-            data: [150, 230, 224, 218, 135, 147, 260],
-            type: 'line'
-          }
-        ]
-      };
-
-      pie = {
-        title: {
-          text: 'Referer of a Website',
-          subtext: 'Fake Data',
-          left: 'center'
+          text: 'Consumo Total de Energía'
         },
         tooltip: {
           trigger: 'item'
+        },
+        series: [
+          {
+            name: 'Consumo Total',
+            type: 'gauge',
+            detail: { formatter: '{value} kWh' },
+            data: [{ value: 50, name: 'Consumo Total' }]
+          }
+        ]
+      };
+
+      const deviceDistributionOptions = {
+        title: {
+          text: 'Distribución del Consumo por Dispositivo'
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b}: {c} kWh ({d}%)'
         },
         legend: {
           orient: 'vertical',
@@ -76,15 +57,15 @@
         },
         series: [
           {
-            name: 'Access From',
+            name: 'Consumo por Dispositivo',
             type: 'pie',
             radius: '50%',
             data: [
-              { value: 1048, name: 'Search Engine' },
-              { value: 735, name: 'Direct' },
-              { value: 580, name: 'Email' },
-              { value: 484, name: 'Union Ads' },
-              { value: 300, name: 'Video Ads' }
+              { value: 335, name: 'Luces' },
+              { value: 310, name: 'Electrodomésticos' },
+              { value: 234, name: 'Climatización' },
+              { value: 135, name: 'Electrónicos' },
+              { value: 1548, name: 'Otros' }
             ],
             emphasis: {
               itemStyle: {
@@ -97,13 +78,32 @@
         ]
       };
 
-      chartBar.setOption(bar);
-      chartLine.setOption(line);
-      chartPie.setOption(pie);
+      const consumptionTrendOptions = {
+        title: {
+          text: 'Tendencia de Consumo'
+        },
+        xAxis: {
+          type: 'category',
+          data: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            name: 'Consumo',
+            type: 'line',
+            data: [150, 230, 224, 218, 135, 147]
+          }
+        ]
+      };
 
+      chartTotalConsumption.setOption(totalConsumptionOptions);
+      chartDeviceDistribution.setOption(deviceDistributionOptions);
+      chartConsumptionTrend.setOption(consumptionTrendOptions);
     }
 
-    bar();
+    renderCharts();
   </script>
 </body>
 </html>
