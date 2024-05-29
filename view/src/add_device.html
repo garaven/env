@@ -16,8 +16,14 @@
             <input type="text" id="name" name="name">
         </div>
         <div>
-            <label for="brand">Brand</label>
-            <input type="text" id="brand" name="brand">
+            <label for="device_type">Device type</label>
+            <select name="device_type" id="device_type">
+              <option value="light">Lights</option>
+              <option value="appliance">Appliances</option>
+              <option value="air">Air conditioning</option>
+              <option value="electronics">Electronics</option>
+              <option value="others">Others</option>
+            </select>
         </div>
         <div>
             <label for="power-consumption">Power Consumption (kWh)</label>
