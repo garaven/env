@@ -1,4 +1,5 @@
 const { db } = require('../database/db');
+const userConfig = require('./userConfig');
 
 function userList(callback) {
   const sql = `SELECT * FROM user`;
@@ -34,6 +35,7 @@ function loginUser(email, password, callback) {
       user = result[0];
       acc_type = user.acc_type;
       if(user.password === password) {
+        userConfig.setUserEmail(user.email);
         callback(null, true);
       } else {
         callback(null, false);
@@ -47,5 +49,5 @@ function loginUser(email, password, callback) {
 module.exports = {
   registerUser,
   loginUser,
-  userList
+  userList,
 };

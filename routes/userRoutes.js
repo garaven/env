@@ -28,7 +28,6 @@ router.post("/login", (req, res) => {
         return res.status(500).send('User not found');
       } else {
         res.redirect(`/main?acc_type=${acc_type}`);
-      // res.sendFile(path.join(__dirname + "/../view/src/main.html"));
       }
     }
   })
