@@ -1,5 +1,15 @@
 const { db } = require('../database/db');
 
+function devicesListByUser(user_email, callback) {
+  const sql = `SELECT * FROM device WHERE user_email = ? AND active = 1`;
+  db.query(sql, [user_email], (err, devices) => {
+    if (err) {
+      console.error('Error on database:', err);
+      return callback(err);
+    }
+    callback(null, devices);
+  });
+}
 
 function devicesList(callback) {
   const sql = `SELECT * FROM device`;
@@ -48,6 +58,7 @@ function deleteDevice(deviceId, active, callback) {
 };
 
 module.exports = {
+  devicesListByUser,
   devicesList,
   editDevice,
   deleteDevice,

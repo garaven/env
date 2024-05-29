@@ -4,6 +4,7 @@ const path = require("path");
 const control = require('../controllers/deviceController');
 const userConfig = require('../controllers/userConfig');
 
+
 // Route to create a new device
 router.post("/add", (req, res) => {
   const { name, brand, consumption, usage_time } = req.body;
@@ -18,7 +19,8 @@ router.post("/add", (req, res) => {
 
 // Route to show the list of devices
 router.get("/device", (req, res) => {
-  control.devicesList((err, devices) => {
+  const user_email = userConfig.getUserEmail();
+  control.devicesListByUser(user_email, (err, devices) => {
     if (err) {
       return res.status(500).send('Error fetching devices');
     }
