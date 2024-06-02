@@ -26,3 +26,6 @@ app.use(deviceRouter);
 
 const dashboardRouter = require("./routes/dashboardRoutes")
 app.use(dashboardRouter);
+
+const deviceData = require("./routes/deviceData")
+app.use(deviceData);

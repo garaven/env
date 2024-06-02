@@ -30,7 +30,9 @@
     </article>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
   <script>
+    // Fetch data for total usage and limitation bar
     fetch('/dashboard/usage_time')
     .then(response => response.json())
     .then(data => {
@@ -39,6 +41,7 @@
     })
     .catch(error => console.error('Error:', error));
 
+    // Function to update the limitation progress bar
     function updateProgressBar(value) {
       var maxUsage = 1000; // Define the maximum value
       var percentage = (value / maxUsage) * 100;
@@ -88,27 +91,28 @@
       };
     
       myChart.setOption(option);
-    }    
-    
-    function bar() {
-      var myChart = echarts.init(document.getElementById('graph-bar'));
+    }
 
+    // Fetch data for bar chart and update the bar chart
+    function updateBarChart(data) {
+      var myChart = echarts.init(document.getElementById('graph-bar'));
+      
       var option = {
         title: {
           text: 'Energy consumption by device'
         },
         tooltip: {},
         xAxis: {
-          data: ['Lights', 'Appliances', 'Air conditioning', 'Electronics', 'Others']
+          data: data.map(item => item.name)
         },
         yAxis: {
           name: 'kWh'
         },
         series: [
           {
-            name: 'Consumo',
+            name: 'Consumption',
             type: 'bar',
-            data: [150, 230, 224, 218, 135],
+            data: data.map(item => item.value),
             itemStyle: {
               color: '#8871fa',
               borderRadius: [10, 10, 10, 10]
@@ -120,7 +124,14 @@
       myChart.setOption(option);
     }
 
-    bar();
+    // Fetch data for analytics and update the bar chart
+    fetch('/api/analytics')
+    .then(response => response.json())
+    .then(data => {
+      updateBarChart(data.deviceDistributionData);
+    })
+    .catch(error => console.error('Error:', error));
+
   </script>
 </body>
 </html>

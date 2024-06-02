@@ -7,100 +7,110 @@
   <link rel="stylesheet" href="../css/general_styles.css">
   <link rel="stylesheet" href="../css/analytics.css">
   <style>
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
     .contCharts {
-      width: 400px;
+      width: 100%;
       height: 400px;
-      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
-  <div id="containerTotalConsumption" class="contCharts"></div>
-  <div id="containerDeviceDistribution" class="contCharts"></div>
-  <div id="containerConsumptionTrend" class="contCharts"></div>
+  <div class="container">
+    <div id="containerTotalConsumption" class="contCharts"></div>
+    <div id="containerDeviceDistribution" class="contCharts"></div>
+    <div id="containerConsumptionTrend" class="contCharts"></div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.1/dist/echarts.min.js"></script>
   <script>
-    function renderCharts() {
-      const chartTotalConsumption = echarts.init(document.getElementById('containerTotalConsumption'));
-      const chartDeviceDistribution = echarts.init(document.getElementById('containerDeviceDistribution'));
-      const chartConsumptionTrend = echarts.init(document.getElementById('containerConsumptionTrend'));
+    async function renderCharts() {
+      try {
+        const response = await fetch('/api/analytics');
+        const data = await response.json();
 
-      const totalConsumptionOptions = {
-        title: {
-          text: 'Consumo Total de Energía'
-        },
-        tooltip: {
-          trigger: 'item'
-        },
-        series: [
-          {
-            name: 'Consumo Total',
-            type: 'gauge',
-            detail: { formatter: '{value} kWh' },
-            data: [{ value: 50, name: 'Consumo Total' }]
-          }
-        ]
-      };
+        const { totalConsumption, deviceDistributionData, consumptionTrendData } = data;
 
-      const deviceDistributionOptions = {
-        title: {
-          text: 'Distribución del Consumo por Dispositivo'
-        },
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b}: {c} kWh ({d}%)'
-        },
-        legend: {
-          orient: 'vertical',
-          left: 'left'
-        },
-        series: [
-          {
-            name: 'Consumo por Dispositivo',
-            type: 'pie',
-            radius: '50%',
-            data: [
-              { value: 335, name: 'Luces' },
-              { value: 310, name: 'Electrodomésticos' },
-              { value: 234, name: 'Climatización' },
-              { value: 135, name: 'Electrónicos' },
-              { value: 1548, name: 'Otros' }
-            ],
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
+        const chartTotalConsumption = echarts.init(document.getElementById('containerTotalConsumption'));
+        const chartDeviceDistribution = echarts.init(document.getElementById('containerDeviceDistribution'));
+        const chartConsumptionTrend = echarts.init(document.getElementById('containerConsumptionTrend'));
+
+        const totalConsumptionOptions = {
+          title: {
+            text: 'Total energy consumption'
+          },
+          tooltip: {
+            trigger: 'item'
+          },
+          series: [
+            {
+              name: 'Total consumption',
+              type: 'gauge',
+              detail: { formatter: '{value} kWh' },
+              data: [{ value: totalConsumption, name: 'Total (no hours)' }]
+            }
+          ]
+        };
+
+        const deviceDistributionOptions = {
+          title: {
+            text: 'Consumption by device'
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} kWh ({d}%)'
+          },
+          legend: {
+            orient: 'vertical',
+            left: 'left'
+          },
+          series: [
+            {
+              name: 'Consumption by device',
+              type: 'pie',
+              radius: '50%',
+              data: deviceDistributionData,
+              emphasis: {
+                itemStyle: {
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
               }
             }
-          }
-        ]
-      };
+          ]
+        };
 
-      const consumptionTrendOptions = {
-        title: {
-          text: 'Tendencia de Consumo'
-        },
-        xAxis: {
-          type: 'category',
-          data: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun']
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [
-          {
-            name: 'Consumo',
-            type: 'line',
-            data: [150, 230, 224, 218, 135, 147]
-          }
-        ]
-      };
+        const consumptionTrendOptions = {
+          title: {
+            text: 'Consumption trend'
+          },
+          xAxis: {
+            type: 'category',
+            data: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [
+            {
+              name: 'Consumption',
+              type: 'line',
+              data: consumptionTrendData
+            }
+          ]
+        };
 
-      chartTotalConsumption.setOption(totalConsumptionOptions);
-      chartDeviceDistribution.setOption(deviceDistributionOptions);
-      chartConsumptionTrend.setOption(consumptionTrendOptions);
+        chartTotalConsumption.setOption(totalConsumptionOptions);
+        chartDeviceDistribution.setOption(deviceDistributionOptions);
+        chartConsumptionTrend.setOption(consumptionTrendOptions);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     }
 
     renderCharts();
